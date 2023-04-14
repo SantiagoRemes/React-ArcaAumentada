@@ -1,0 +1,288 @@
+body {
+    font: 'Inter';
+}
+
+.head1 {
+    color: #C72B40;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.mainCont {
+    margin: auto;
+    height: 600px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+input {
+    height: 30px;
+}
+
+.bot{
+    height: 25px;
+    border: 0;
+    color: rgb(152, 53, 53);
+    background-color: #C72B40;
+    font: 'Inter';
+    color: white;
+}
+
+.botspace{
+    height: 25px;
+    border: 0;
+    color: rgb(152, 53, 53);
+    background-color: #C72B40;
+    font: 'Inter';
+    color: white;
+    margin-right: 0%;
+    margin-left: 0%;
+    display: inline;
+}
+
+.logo {
+    height: 100px;
+    width: 250px;
+}
+
+.container {
+    background-color: #C72B40;
+    transform: skewY(-10deg);
+    transform-origin: 0;
+    height: 50vh;
+    perspective: 25vh;
+}
+  .menu_btn{
+    width: 32px;
+    height: 26px;
+    position: absolute;
+    top: 30%;
+    right: 2.5%;
+    margin-right: 10px;
+  }
+  .topText{
+    font-size: 24px;
+    color: white;
+    position: relative;
+  }
+  .topContainer{
+    position:absolute;
+    top: 12%;
+    width: 100%;
+    height: fit-content;
+    transform: skewY(10deg)
+  }
+  .percentage{
+    position:absolute;
+    top:30%;
+    width: 100%;
+    transform : skewY(10deg);
+    color: #FFFFFF;
+  }
+  .metrics{
+    width: 90%;
+    height: fit-content;
+    background-color: #FFFFFF;
+    transform: skewY(10deg);
+    position: absolute;
+    top: 60%;
+    left: 5%;
+    border-right: solid 1.5px rgb(182, 182, 182);
+    border-bottom: solid 1.5px rgb(182, 182, 182);
+    padding: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  .created_sol{
+    float: left;
+    width: 30%;
+  
+  }
+  .amnt{
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+  .lbl{
+    margin-top: 0;
+  }
+  .pending_sol{
+    width: 30%;
+  }
+  .compl_sol{
+    width: 30%;
+    float: right;
+  }
+  .recent_sol{
+    width: 90%;
+    height: fit-content;
+    background-color: #FFFFFF;
+    transform: skewY(10deg);
+    position: absolute;
+    top: 95%;
+    left: 5%;
+    border-right: solid 1.5px rgb(182, 182, 182);
+    border-bottom: solid 1.5px rgb(182, 182, 182);
+    padding: none;
+  }
+  .atag{
+    margin-top: 0;
+    float: right;
+    color:#C72B40;
+  }
+  .order{
+    width: 100%;
+    border-top: solid black 1px;
+    justify-content: space-between;
+    display: flex;
+  
+  }
+  .sol_toolbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ref{
+    float: left;
+  }
+  .btn{
+    background-color: #C72B40;
+    width: fit-content;
+    height: fit-content;
+    color: #FFFFFF;
+    padding: 2px;
+    position: absolute;
+    top: 160%;
+    transform: skewY(10deg);
+    left: 38%;
+  }
+
+
+
+.redbg{
+    background-color: #C72B40;
+    line-height: 39px;
+}
+
+.imageflex{
+    float: left;
+    text-align: left;
+    display: inline;
+}
+
+.imageqr{
+    position: relative;
+    right: -100px;
+    top: -28px;
+}
+
+.header{
+    position:relative;
+    left: -25px;
+    text-align: center;
+    font-weight: 350;
+    color: white;
+    font: 'Inter';
+    font-style: normal;
+    text-align: center;
+    font-size: 32px;
+    display: inline;
+}
+
+.header2{
+    text-align: center;
+    color: #C72B40;
+    font-weight: 350;
+    font: 'Inter';
+    font-style: normal;
+    font-size: 32px;
+}
+
+div{
+    text-align: center;
+}
+
+.slabel{
+    font-size: 11px;
+    color: black;
+    font: 'Inter';
+    position:relative;
+    left: -52px;
+    display: block;
+    text-align: left;
+    margin-left: 35%;
+}
+
+.contlogin{
+    margin-top: 200px;
+}
+
+.tit{
+    color: #C72B40;
+    text-align: center;
+}
+
+.mainCont {
+    margin: auto;
+    height: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tex {
+    height: 25px;
+    width: 30%;
+}
+
+.botmain{
+    transform: skewY(10deg);
+    height: 25px;
+    border: 0;
+    color: rgb(152, 53, 53);
+    background-color: #C72B40;
+    font: 'Inter';
+    color: white;
+}
+
+.twop{
+  margin: 0;
+  display: flex; 
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 25px;
+}
+
+.red{
+  color: #C72B40;
+}
+
+.sep{
+  border-bottom: solid black 1px;
+}
+
+.sep2{
+  border-bottom: solid black 1px;
+  border-top: solid black 1px;
+}
+
+.imageflex2{
+  float: right;
+  text-align: right;
+  display: inline;
+}
+
+.slabel2{
+  text-align: left;
+  font-size: 15px;
+  color: black;
+  font: 'Inter';
+  display: block;
+  padding-left: 10px ;
+  height: 10px;
+}
