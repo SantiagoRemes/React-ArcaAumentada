@@ -8,7 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import Historial from './Pages/historial';
 import Solcheck from './Pages/solcheck';
-import Test from './Pages/Test/Test';
+import Dashboard from './Pages/dashboard';
+//import Test from './Pages/Test/Test';
 
 
 function App() {
@@ -23,11 +24,12 @@ function App() {
           <Route path='/solicitud' element={<Solicitud />}/>
           <Route path='/historial' element={<Historial />}/>
           <Route path='/solcheck' element={<Solcheck />}/>
-          <Route path='/Test' element={<Test />}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </Router>
     </div>
   );
 }
+//<Route path='/Test' element={<Test />}/>
 
 export default App;
