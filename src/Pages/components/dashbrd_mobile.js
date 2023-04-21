@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import Navbar from 'react-bootstrap/Navbar';
-import AdminMetrics from './components/admin_metrics';
-import Recenthist from './components/recenthistory';
-import TopContainer from './components/topcontainer';
+import AdminMetrics from './admin_metrics';
+import Recenthist from './recenthistory';
+import TopContainer from './topcontainer';
 
 function dashbrd_mobile() {
   return (

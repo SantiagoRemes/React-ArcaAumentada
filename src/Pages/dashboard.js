@@ -1,6 +1,6 @@
 import React from "react";
-import Dashbrd_mobile from "./dashbrd_mobile";
-import Dashbrd_computer from "./dashbrd_computer";
+import Dashbrd_mobile from "./components/dashbrd_mobile";
+import Dashbrd_computer from "./components/dashbrd_computer";
 
 const dashboard = () =>{
     const userAgent = navigator.userAgent;
