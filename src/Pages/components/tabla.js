@@ -66,6 +66,27 @@ const Table = (props) =>{
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td><input type='text'/></td>
+                            <td><input type='text'/></td>
+                            <td><input type='text'/></td>
+                            <td><input type='text'/></td>
+                            <td>
+                                <select>
+                                    <option value='1'>Agregar</option>
+                                    <option value='2'>Cambiar</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type='text' placeholder='Código'/>
+                            </td>
+                            <td>
+                                <input type='text' placeholder='Razón'/>
+                            </td>
+                            <td>
+                                <Checklist />
+                            </td>
+                    </tr>
                         {list.map((item) => (
                             <tr>
                                 <td>{item.cantidad}</td>
