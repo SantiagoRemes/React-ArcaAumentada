@@ -16,7 +16,7 @@ function Historial() {
     const [Solicitudes, setSolicitudes] = useState(null);
 
     useEffect(() => {
-            fetch(`http://localhost:2000/solicitud/bydes/${id}`)
+            fetch(`http://localhost:2000/solicitud/tienda/${id}`)
             .then( (res) => res.json())
             .then((data)=> setSolicitudes(data));
         }, []);

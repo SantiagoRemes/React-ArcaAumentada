@@ -16,15 +16,15 @@ function Sol_card(props) {
                 <p class='red'>{item.estatus}</p>
             </div>
             <div className='twop'>
-                <p>[NOMBRE]</p>
-                <p>[MODELO]</p>
+                <p>{item.nombre}</p>
+                <p>{item.idDesarrollador}</p>
             </div>
             <div className='twop'>
-                <p>[DIRECCIÓN]</p>
+                <p>{item.estado + ', ' + item.ciudad + ', ' + item.colonia + ', ' + item.calle_no}</p>
             </div>
             <div className='twop'>
-                <p>[CONTACTO]</p>
-                <p>[NO. DE CLIENTE]</p>
+                <p>{item.celular}</p>
+                <p>{item.idTienda[0]}</p>
             </div>
         </div>
     </Nav.Link>

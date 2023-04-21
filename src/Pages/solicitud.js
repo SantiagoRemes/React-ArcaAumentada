@@ -238,7 +238,7 @@ function Solicitud() {
             <input type='text' placeholder='[Número de puertas a solicitar]'></input><br/>
             <br></br><br></br>
 
-            <label class='slabel'>Listado de EDF actual</label>
+            <label class='header2'>Listado de EDF actual</label>
             <table class='table'>
                     <thead class='tableheader'> 
                         <tr>
@@ -257,7 +257,7 @@ function Solicitud() {
                     </tbody>
                 </table>
             <br></br><br></br>
-            <label class='slabel'>Listado de EDF a solicitar</label>
+            <label class='header2'>Listado de EDF a solicitar</label>
             <Table type='solic'/><br/>
             <br></br><br></br>
             <label class='slabel'>Evidencia</label>
