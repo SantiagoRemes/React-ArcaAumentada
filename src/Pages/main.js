@@ -5,8 +5,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Metrics from './components/metrics';
 import Recenthist from './components/recenthistory';
+import { useParams  } from 'react-router-dom';
 
 function main(props) {
+
+  let { id } = new useParams()
+
   return (
     <div className="container">
         <div className='topContainer'>
@@ -22,11 +26,11 @@ function main(props) {
           </center>
         </div>
         <center>
-          <Metrics />
+          <Metrics data = {id}/>
           <Recenthist />
           <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-          <Nav.Link href="/visita"><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
-          <Nav.Link href="/unity"><button className='botmain'>Nueva Orden</button></Nav.Link>
+          <Nav.Link href={`${id}/visita`}><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
+          <Nav.Link href={`${id}/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>
         </center>
     </div>
   )
