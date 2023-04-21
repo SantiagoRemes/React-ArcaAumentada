@@ -8,6 +8,7 @@ import BackArrow from '../images/backarrow.png';
 import Search from '../images/search.png';
 import { useState, useEffect } from "react";
 import { useParams  } from 'react-router-dom';
+import Sol_card from './components/sol_card';
 
 function Historial() {
 
@@ -29,140 +30,8 @@ function Historial() {
         </div>
         <br></br>
         {Solicitudes && Solicitudes.map((item) => 
-        <Nav.Link href={`/solcheck/${item.idSolicitud}`}>
-            <div className='sep'>
-                <div className='twop'>
-                    <p>{item.idSolicitud}</p>
-                    <p class='red'>{item.estatus}</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link>
+            <Sol_card item={item} />
         )}
-        {/* <Nav.Link href="/solcheck">
-            <div className='sep'>
-                <div className='twop'>
-                    <p>[REFERENCIA]</p>
-                    <p class='red'>[STATUS]</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link>
-        <Nav.Link href="/solcheck">
-            <div className='sep'>
-                <div className='twop'>
-                    <p>[REFERENCIA]</p>
-                    <p class='red'>[STATUS]</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link>
-        <Nav.Link href="/solcheck">
-            <div className='sep'>
-                <div className='twop'>
-                    <p>[REFERENCIA]</p>
-                    <p class='red'>[STATUS]</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link>
-        <Nav.Link href="/solcheck">
-            <div className='sep'>
-                <div className='twop'>
-                    <p>[REFERENCIA]</p>
-                    <p class='red'>[STATUS]</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link>
-        <Nav.Link href="/solcheck">
-            <div className='sep'>
-                <div className='twop'>
-                    <p>[REFERENCIA]</p>
-                    <p class='red'>[STATUS]</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link>
-        <Nav.Link href="/solcheck">
-            <div className='sep'>
-                <div className='twop'>
-                    <p>[REFERENCIA]</p>
-                    <p class='red'>[STATUS]</p>
-                </div>
-                <div className='twop'>
-                    <p>[NOMBRE]</p>
-                    <p>[MODELO]</p>
-                </div>
-                <div className='twop'>
-                    <p>[DIRECCIÓN]</p>
-                </div>
-                <div className='twop'>
-                    <p>[CONTACTO]</p>
-                    <p>[NO. DE CLIENTE]</p>
-                </div>
-            </div>
-        </Nav.Link> */}
 
     </div>
   )

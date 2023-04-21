@@ -22,7 +22,7 @@ function App() {
           <Route path=':idDes/visita' element={<Visita />}/>
           <Route path='/unity' element={<Unity />}/>
           <Route path=':idDes/solicitud' element={<Solicitud />}/>
-          <Route path=':idDes/historial' element={<Historial />}/>
+          <Route path='/historial' element={<Historial />}/>
           <Route path=':idDes/solcheck/:idSolicitud' element={<Solcheck />}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
