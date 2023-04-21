@@ -42,6 +42,8 @@ function Solicitud() {
   //const [ventasactualesnegocio, setNegocioventasactuales] = useState();
   //const [puertassolicitarnegocio, setNegociopuertassolicitar] = useState();
 
+  const [RefriporTienda, setRefriporTienda] = useState('')
+
   useEffect(() => {
     fetch(`http://localhost:2000/desarrollador/${id}`)
     .then( (res) => res.json())
@@ -129,14 +131,16 @@ function Solicitud() {
         setNegociociudad('');
         setNegocioestado('');
         setNegociocelular('');
-        setNegocionumerocliente('')
-        setNegociotamano('')
+        setNegocionumerocliente('');
+        setNegociotamano('');
       }
     }
     catch(err){
 
     }
-
+    fetch(`http://localhost:2000/refrisolicitado/refriportienda/${numeroclientenegocio}`)
+    .then( (res) => res.json())
+    .then((data)=> setRefriporTienda(data));
   };
  
   return (
@@ -235,10 +239,26 @@ function Solicitud() {
             <br></br><br></br>
 
             <label class='slabel'>Listado de EDF actual</label>
-            <Table type='curr' id={numeroclientenegocio}/><br/>
+            <table class='table'>
+                    <thead class='tableheader'> 
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Modelo</th>
+                            <th>Código único EDF</th>
+                            <th># de puertas</th>
+                            <th> Movimiento</th>
+                            <th>Razón</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {RefriporTienda && RefriporTienda.map((item) => (
+                <Table type='curr' item={item}/>
+                ))}
+                    </tbody>
+                </table>
             <br></br><br></br>
             <label class='slabel'>Listado de EDF a solicitar</label>
-            <Table type='solic' id={numeroclientenegocio}/><br/>
+            <Table type='solic'/><br/>
             <br></br><br></br>
             <label class='slabel'>Evidencia</label>
 
