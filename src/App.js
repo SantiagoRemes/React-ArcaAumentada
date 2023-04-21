@@ -9,7 +9,6 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import Historial from './Pages/historial';
 import Solcheck from './Pages/solcheck';
 import Dashboard from './Pages/dashboard';
-//import Test from './Pages/Test/Test';
 
 
 function App() {
@@ -30,6 +29,5 @@ function App() {
     </div>
   );
 }
-//<Route path='/Test' element={<Test />}/>
 
 export default App;
