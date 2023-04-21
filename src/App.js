@@ -22,7 +22,7 @@ function App() {
           <Route path='/visita' element={<Visita />}/>
           <Route path='/unity' element={<Unity />}/>
           <Route path='/solicitud' element={<Solicitud />}/>
-          <Route path='/historial' element={<Historial />}/>
+          <Route path='/historial/:idDes' element={<Historial />}/>
           <Route path='/solcheck/:idSolicitud' element={<Solcheck />}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>

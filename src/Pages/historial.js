@@ -7,13 +7,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import BackArrow from '../images/backarrow.png';
 import Search from '../images/search.png';
 import { useState, useEffect } from "react";
+import { useParams  } from 'react-router-dom';
 
 function Historial() {
 
+    let { idDes } = new useParams()
     const [Solicitudes, setSolicitudes] = useState(null);
 
     useEffect(() => {
-            fetch(`http://localhost:2000/solicitud/bydes`)
+            fetch(`http://localhost:2000/solicitud/bydes/${idDes}`)
             .then( (res) => res.json())
             .then((data)=> setSolicitudes(data));
         }, []);
@@ -30,8 +32,8 @@ function Historial() {
         <Nav.Link href={`/solcheck/${item.idSolicitud}`}>
             <div className='sep'>
                 <div className='twop'>
-                    <p>[REFERENCIA]{item.idSolicitud}</p>
-                    <p class='red'>[STATUS]</p>
+                    <p>{item.idSolicitud}</p>
+                    <p class='red'>{item.estatus}</p>
                 </div>
                 <div className='twop'>
                     <p>[NOMBRE]</p>
@@ -47,7 +49,7 @@ function Historial() {
             </div>
         </Nav.Link>
         )}
-        <Nav.Link href="/solcheck">
+        {/* <Nav.Link href="/solcheck">
             <div className='sep'>
                 <div className='twop'>
                     <p>[REFERENCIA]</p>
@@ -160,7 +162,7 @@ function Historial() {
                     <p>[NO. DE CLIENTE]</p>
                 </div>
             </div>
-        </Nav.Link>
+        </Nav.Link> */}
 
     </div>
   )

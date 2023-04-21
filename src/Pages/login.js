@@ -14,9 +14,13 @@ function Login() {
   const [exito, setExito] = useState(false);
   const [error, setError] = useState("");
   const [Desarrollador, setDesarrollador] = useState("");
+  const [Chofer, setChofer] = useState("");
+  const [Administrador, setAdministrador] = useState("");
 
   const LogIn = () => {
-    const url = `http://localhost:2000/desarrollador/login`;
+    const urlDes = `http://localhost:2000/desarrollador/login`;
+    const urlAdm = `http://localhost:2000/administrador/login`;
+    const urlChf = `http://localhost:2000/chofer/login`;
     const data = {
       usuario: `${Usuario}`,
       contrasena: `${Contrasena}`,
@@ -28,17 +32,40 @@ function Login() {
       },
       body: JSON.stringify(data),
     };
-    fetch(url, options)
+    fetch(urlDes, options)
     .then((res) => res.json())
     .then((data) => setDesarrollador(data))
       .catch((err) => {
 
         setError(err);
         setExito(false);
-      });
+    });
+    fetch(urlAdm, options)
+    .then((res) => res.json())
+    .then((data) => setAdministrador(data))
+      .catch((err) => {
+
+        setError(err);
+        setExito(false);
+    });
+    fetch(urlChf, options)
+    .then((res) => res.json())
+    .then((data) => setChofer(data))
+      .catch((err) => {
+
+        setError(err);
+        setExito(false);
+    });
       console.log(Desarrollador)
       if(Desarrollador.length != 0){
-        navigate('/main');
+        alert('Desarrollador')
+        //navigate('/main');
+      }
+      else if(Administrador.length != 0){
+        alert('Administrador')
+      }
+      else if(Chofer.length != 0){
+        alert('Chofer')
       }
     
   };
