@@ -59,7 +59,7 @@ function Login() {
       console.log(Desarrollador)
       if(Desarrollador.length != 0){
         alert('Desarrollador')
-        navigate(`${Desarrollador.idDesarrollador}/main`);
+        navigate(`${Desarrollador[0].idDesarrollador}/main`);
       }
       else if(Administrador.length != 0){
         alert('Administrador')
