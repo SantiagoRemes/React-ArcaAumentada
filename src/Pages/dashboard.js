@@ -12,7 +12,6 @@ const dashboard = () =>{
     if(isComputer){
         return(
             <div>
-                <h1>the identifier recognized you</h1>
                 <Dashbrd_computer/>
             </div>
         )
