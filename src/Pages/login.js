@@ -2,8 +2,48 @@ import React from 'react'
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
-function login() {
+
+
+function Login() {
+  const navigate = useNavigate();
+  const [Usuario, setUsuario] = useState("");
+  const [Contrasena, setContrasena] = useState("");
+  const [exito, setExito] = useState(false);
+  const [error, setError] = useState("");
+  const [Desarrollador, setDesarrollador] = useState("");
+
+  const LogIn = () => {
+    const url = `http://localhost:2000/desarrollador/login`;
+    const data = {
+      usuario: `${Usuario}`,
+      contrasena: `${Contrasena}`,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => setDesarrollador(data))
+      .catch((err) => {
+
+        setError(err);
+        setExito(false);
+      });
+      console.log(Desarrollador)
+      if(Desarrollador.length != 0){
+        navigate('/main');
+      }
+    
+  };
+
+  
   return (
     <div className='contlogin'>
         <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Arca_Continental_logo.svg/1200px-Arca_Continental_logo.svg.png" alt="Arca Continental" />
@@ -11,12 +51,12 @@ function login() {
         <h1 class='head1'>Inicio de Sesión</h1>
         <br></br>
         <form>
-            <input type="text" placeholder="Usuario" /><br></br><br></br>
-            <input type="password" placeholder="Contraseña" /><br></br><br></br>
+          <input type="text" placeholder="Usuario" controlId="usuario" onChange={(e) => setUsuario(e.target.value)}/><br></br><br></br>
+          <input type="password" placeholder="Contraseña" controlId="contrasena" onChange={(e) => setContrasena(e.target.value)}/><br></br><br></br>
+          <button class="bot" type="submit" onClick={(e) => {e.preventDefault(); LogIn();}}>Ingresar</button>
         </form>
-        <Nav.Link href='/main'><button class="bot">Ingresar</button></Nav.Link>
     </div>
   )
 }
 
-export default login
+export default Login

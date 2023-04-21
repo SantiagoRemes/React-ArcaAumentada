@@ -6,8 +6,18 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import BackArrow from '../images/backarrow.png';
 import Search from '../images/search.png';
+import { useState, useEffect } from "react";
 
-function historial() {
+function Historial() {
+
+    const [Solicitudes, setSolicitudes] = useState(null);
+
+    useEffect(() => {
+            fetch(`http://localhost:2000/solicitud/bydes`)
+            .then( (res) => res.json())
+            .then((data)=> setSolicitudes(data));
+        }, []);
+
   return (
     <div>
         <div class='redbg'>
@@ -16,10 +26,11 @@ function historial() {
             <img class='imageflex2' src={Search} alt='backarrow' width='40px' height='40px'/>
         </div>
         <br></br>
-        <Nav.Link href="/solcheck">
+        {Solicitudes && Solicitudes.map((item) => 
+        <Nav.Link href={`/solcheck/${item.idSolicitud}`}>
             <div className='sep'>
                 <div className='twop'>
-                    <p>[REFERENCIA]</p>
+                    <p>[REFERENCIA]{item.idSolicitud}</p>
                     <p class='red'>[STATUS]</p>
                 </div>
                 <div className='twop'>
@@ -35,6 +46,7 @@ function historial() {
                 </div>
             </div>
         </Nav.Link>
+        )}
         <Nav.Link href="/solcheck">
             <div className='sep'>
                 <div className='twop'>
@@ -154,4 +166,4 @@ function historial() {
   )
 }
 
-export default historial
+export default Historial
