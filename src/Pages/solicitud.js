@@ -8,6 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useState, useEffect } from "react";
 import Table from './components/tabla';
+import { handleidChange } from './components/tabla'
 
 function Solicitud() {
   let {id} = useParams();
@@ -234,10 +235,10 @@ function Solicitud() {
             <br></br><br></br>
 
             <label class='slabel'>Listado de EDF actual</label>
-            <Table type='curr' /><br/>
+            <Table type='curr' id={numeroclientenegocio}/><br/>
             <br></br><br></br>
             <label class='slabel'>Listado de EDF a solicitar</label>
-            <Table type='solic' /><br/>
+            <Table type='solic' id={numeroclientenegocio}/><br/>
             <br></br><br></br>
             <label class='slabel'>Evidencia</label>
 

@@ -3,12 +3,14 @@ import style from '../css/style.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import BackArrow from '../images/backarrow.png';
+import { useParams  } from 'react-router-dom';
 
 function solcheck() {
+    let { id } = new useParams()
   return (
     <div>
         <div class='redbg'>
-            <Nav.Link href="/historial"><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
+            <Nav.Link href={`/${id}/historial`}><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
             <h1 class='header'>Editar Solicitud</h1>
         </div>
         <br></br>

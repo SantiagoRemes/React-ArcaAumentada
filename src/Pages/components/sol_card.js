@@ -7,8 +7,9 @@ import { useParams  } from 'react-router-dom';
 
 function Sol_card(props) {
     const item = props.item;
+    const id = props.id;
     return(
-        <Nav.Link href={`/solcheck/${item.idSolicitud}`}>
+        <Nav.Link href={`/${id}/solcheck/${item.idSolicitud}`}>
         <div className='sep'>
             <div className='twop'>
                 <p>{item.idSolicitud}</p>

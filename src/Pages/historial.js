@@ -30,7 +30,7 @@ function Historial() {
         </div>
         <br></br>
         {Solicitudes && Solicitudes.map((item) => 
-            <Sol_card item={item} />
+            <Sol_card item={item} id={id}/>
         )}
 
     </div>

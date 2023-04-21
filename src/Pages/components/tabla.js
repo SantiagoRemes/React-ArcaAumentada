@@ -4,15 +4,16 @@ import Checklist from './checklist';
 
 const Table = (props) =>{
     const type = props.type;
-    const [list, setList] = useState([])
+    const id = props.id;
+    const [RefriporTienda, setRefriporTienda] = useState('')
 
-    useEffect(() =>{
-        fetch('')
-        .then(response => response.json())
-        .then(data => setList(data))
+    useEffect(() => {
+        fetch(`http://localhost:2000/refrisolicitado/refriportienda/${id}`)
+        .then( (res) => res.json())
+        .then((data)=> setRefriporTienda(data));
     }, []);
 
-    if(type == 'curr'){
+    if(type === 'curr'){
         return(
             <div>
                 <table class='table'>
@@ -27,11 +28,11 @@ const Table = (props) =>{
                         </tr>
                     </thead>
                     <tbody>
-                        {list.map((item) => (
+                        {RefriporTienda && RefriporTienda.map((item) => (
                             <tr>
-                                <td>{item.cantidad}</td>
-                                <td>{item.modelo}</td>
-                                <td>{item.codigo}</td>
+                                <td>1</td>
+                                <td>{item.idModelo}</td>
+                                <td>{item.idRefrigeradorSolicitado}</td>
                                 <td>{item.puertas}</td>
                                 <td>
                                     <select>
@@ -49,10 +50,10 @@ const Table = (props) =>{
                 </table>
             </div>
         )
-    }else if(type == 'solic'){
+    }else if(type === 'solic'){
         return(
             <div>
-                <table class='table'>
+                {/* <table class='table'>
                     <thead class='tableheader'>
                         <tr>
                             <th>Cantidad</th>
@@ -111,7 +112,7 @@ const Table = (props) =>{
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table> */}
             </div>
         )
     }
