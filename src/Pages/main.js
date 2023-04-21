@@ -26,11 +26,11 @@ function main(props) {
           </center>
         </div>
         <center>
-          <Metrics data = {id}/>
-          <Recenthist />
+          <Metrics />
+          <Recenthist data = {id}/>
           <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-          <Nav.Link href={`${id}/visita`}><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
-          <Nav.Link href={`${id}/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>
+          <Nav.Link href={`/${id}/visita`}><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
+          <Nav.Link href={`/${id}/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>
         </center>
     </div>
   )

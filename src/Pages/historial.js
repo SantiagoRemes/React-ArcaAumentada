@@ -11,11 +11,11 @@ import { useParams  } from 'react-router-dom';
 
 function Historial() {
 
-    let { idDes } = new useParams()
+    let { id } = new useParams()
     const [Solicitudes, setSolicitudes] = useState(null);
 
     useEffect(() => {
-            fetch(`http://localhost:2000/solicitud/bydes/${idDes}`)
+            fetch(`http://localhost:2000/solicitud/bydes/${id}`)
             .then( (res) => res.json())
             .then((data)=> setSolicitudes(data));
         }, []);
@@ -23,13 +23,13 @@ function Historial() {
   return (
     <div>
         <div class='redbg'>
-            <Nav.Link href="/main"><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
+            <Nav.Link href={`/${id}/main`}><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
             <h1 class='header'>Historial</h1>
             <img class='imageflex2' src={Search} alt='backarrow' width='40px' height='40px'/>
         </div>
         <br></br>
         {Solicitudes && Solicitudes.map((item) => 
-        <Nav.Link href={`/solcheck/${item.idSolicitud}`}>
+        <Nav.Link href={`/${id}/solcheck/${item.idSolicitud}`}>
             <div className='sep'>
                 <div className='twop'>
                     <p>{item.idSolicitud}</p>

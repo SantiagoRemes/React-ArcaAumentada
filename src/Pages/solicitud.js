@@ -3,11 +3,12 @@ import QRcode from '../images/qricon.png';
 import BackArrow from '../images/backarrow.png';
 import style from '../css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link, useParams} from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function solicitud() {
+function Solicitud() {
+  let {id} = useParams();
   return (
     <div>
       <div class='redbg'>
@@ -36,10 +37,10 @@ function solicitud() {
       <br></br><br></br>
       <div>
         <Nav.Link href="/unity" class='navinline'><button class='botspace'>Agregar</button></Nav.Link><br></br>
-        <Nav.Link href="/main" class='navinline'><button class='botspace'>Terminar</button></Nav.Link>
+        <Nav.Link href={`/${id}/main`} class='navinline'><button class='botspace'>Terminar</button></Nav.Link>
       </div>
     </div>
   )
 }
 
-export default solicitud
+export default Solicitud
