@@ -19,16 +19,84 @@ function Solicitud() {
       <h2 class='header2'>Datos de la solicitud</h2>
       <div>
           <form>
-            <label class='slabel'>Número de serie</label>
-            <input type='text' placeholder='[Num Cliente]'></input><br></br>
-            <img src={QRcode} class='imageqr' width='25px' height='25spx' />
+            <label class='slabel'>Fecha</label>
+            <input type='text' placeholder='[Fecha]'></input><br></br>
             <br></br><br></br>
-            <label class='slabel'>Unidad</label>
-            <input type='text' placeholder='[Modelo]'></input>
+            <label class='slabel'>País</label>
+            <input type='text' placeholder='[País]'></input><br/>
             <br></br><br></br><br></br>
-            <label class='slabel'>Dirección del cliente</label>
-            <input type='text' placeholder='[Dirección y número]'></input>
+            <label class='slabel'>Región</label>
+            <input type='text' placeholder='[Región]'></input><br/>
             <br></br><br></br>
+            <label class='slabel'>CEDI</label>
+            <input type='text' placeholder='[CEDI]'></input><br/>
+            <br></br><br></br>
+            <h2 class='header2'>Datos del Desarrollador</h2>
+            <label class='slabel'>Número de empleado</label>
+            <input type='text' placeholder='[Num Empleado]'></input><br></br>
+            <br></br><br></br>
+            <label class='slabel'>Nombre del desarrollador</label>
+            <input type='text' placeholder='[Juan Pérez]'></input>
+            <br></br><br></br><br></br>
+            <label class='slabel'>Celular del desarrollador</label>
+            <input type='text' placeholder='[Celular]'></input>
+            <br></br><br></br>
+            <h2 class='header2'>Datos del Cliente</h2>
+            <label class='slabel'>Nombre del cliente</label>
+            <input type='text' placeholder='[Nombre del cliente]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Domicilio (Calle y Número)</label>
+            <input type='text' placeholder='[Domicilio]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Colonia</label>
+            <input type='text' placeholder='[Colonia]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Ciudad</label>
+            <input type='text' placeholder='[Ciudad]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Estado</label>
+            <input type='text' placeholder='[Estado]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Celular</label>
+            <input type='text' placeholder='[Celular]'></input><br/>
+            <br></br><br></br>
+            <h2 class='header2'>Datos del Negocio</h2>
+            <label class='slabel'>Nombre del negocio</label>
+            <input type='text' placeholder='[Nombre del negocio]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Dirección (Calle y Número)</label>
+            <input type='text' placeholder='[Dirección]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Colonia</label>
+            <input type='text' placeholder='[Colonia]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Ciudad</label>
+            <input type='text' placeholder='[Ciudad]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Estado</label>
+            <input type='text' placeholder='[Estado]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Celular</label>
+            <input type='text' placeholder='[Celular]'></input><br/>
+            <br></br><br></br>
+            <h2 class='header2'>Datos de factibilidad</h2>
+            <label class='slabel'>Número de Cliente</label>
+            <input type='text' placeholder='[Número de Cliente]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Tamaño</label>
+            <input type='text' placeholder='[Tamaño]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Ventas Actuales</label>
+            <input type='text' placeholder='[Ventas Actuales]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Número actual de puertas</label>
+            <input type='text' placeholder='[Número actual de puertas]'></input><br/>
+            <br></br><br></br>
+            <label class='slabel'>Número de puertas a solicitar</label>
+            <input type='text' placeholder='[Número de puertas a solicitar]'></input><br/>
+            <br></br><br></br>
+            
+            
           </form>
       </div>
       <div>
