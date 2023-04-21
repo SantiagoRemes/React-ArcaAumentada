@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Routes, Route, Link, useParams} from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Table from './components/tabla';
 
 function Solicitud() {
   let {id} = useParams();
@@ -95,8 +96,13 @@ function Solicitud() {
             <label class='slabel'>Número de puertas a solicitar</label>
             <input type='text' placeholder='[Número de puertas a solicitar]'></input><br/>
             <br></br><br></br>
-            
-            
+            <label class='slabel'>Listado de EDF actual</label>
+            <Table type='curr' /><br/>
+            <br></br><br></br>
+            <label class='slabel'>Listado de EDF a solicitar</label>
+            <Table type='solic' /><br/>
+            <br></br><br></br>
+            <label class='slabel'>Evidencia</label>
           </form>
       </div>
       <div>
