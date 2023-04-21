@@ -18,12 +18,12 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<LogIn />}/>
-          <Route path=':idDes/main' element={<Main />}/>
-          <Route path=':idDes/visita' element={<Visita />}/>
+          <Route path=':id/main' element={<Main />}/>
+          <Route path=':id/visita' element={<Visita />}/>
           <Route path='/unity' element={<Unity />}/>
-          <Route path=':idDes/solicitud' element={<Solicitud />}/>
-          <Route path=':idDes/historial' element={<Historial />}/>
-          <Route path=':idDes/solcheck/:idSolicitud' element={<Solcheck />}/>
+          <Route path=':id/solicitud' element={<Solicitud />}/>
+          <Route path=':id/historial' element={<Historial />}/>
+          <Route path=':id/solcheck/:idSolicitud' element={<Solcheck />}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </Router>
