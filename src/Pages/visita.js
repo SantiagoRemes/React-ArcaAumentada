@@ -9,7 +9,7 @@ function visita() {
     <div>
         <div class='redbg'>
             <Nav.Link href="/main"><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
-            <h1 class='header'>Registrar solicitud</h1>
+            <h1 class='header'>Registrar visita</h1>
         </div>
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
         <h2 class="header2">Datos de la visita</h2>
