@@ -286,3 +286,13 @@ div{
   padding-left: 10px ;
   height: 10px;
 }
+
+.tableheader{
+  background-color: #C72B40;
+  color: #FFFFFF;
+}
+
+table, th, td{
+  border: 1px solid black;
+  border-collapse: collapse;
+}

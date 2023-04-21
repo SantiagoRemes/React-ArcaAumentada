@@ -240,8 +240,7 @@ function Solicitud() {
             <Table type='solic' /><br/>
             <br></br><br></br>
             <label class='slabel'>Evidencia</label>
-            
-            
+
           </form>
       </div>
       <div>
