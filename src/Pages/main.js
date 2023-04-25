@@ -1,13 +1,13 @@
-import { useLocation } from 'react-router-dom';
 import Main_Des from "./components/Main_Des";
 import Main_Admin from "./components/Main_Admin";
 import Main_Chofer from "./components/Main_Chofer";
 import { useNavigate } from 'react-router-dom';
 
 function Main() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const {id, rol} = location.state;
+
+  const {id, rol} = JSON.parse(localStorage.getItem('dataKey'));
+  
 
   if(rol === "Des"){
     return(

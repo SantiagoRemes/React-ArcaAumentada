@@ -4,22 +4,25 @@ import "../../css/style.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; //npm install --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import {ReactComponent as Bars} from '../../images/bars.svg'
+import {push as Menu1} from 'react-burger-menu'
 
 const Menu = () =>{
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleMenuClick = () => {
-        setIsOpen(!isOpen);
-    }
-
     return (
-        <div className={`menu ${isOpen ? 'open' : ''}`}>
-            <div className="menu-icon" onClick={handleMenuClick}>
-                <FontAwesomeIcon icon={faBars} className="menu_button" />
-            </div>
-            <div className="menu-content">
-                <h1>fuck</h1>
-            </div>
+        <div className='menu'>
+            <Menu1 right mountOnEnter unmountOnExit>
+            <a className="menu-item" href="/">
+                Home
+            </a>
+            <a className="menu-item" href="/salads">
+                Salads
+            </a>
+            <a className="menu-item" href="/pizzas">
+                Pizzas
+            </a>
+            <a className="menu-item" href="/desserts">
+                Desserts
+            </a>
+            </Menu1>
         </div>
     )
 }

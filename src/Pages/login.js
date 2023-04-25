@@ -28,7 +28,8 @@ function Login() {
     }
 
     if (rol !== '') {
-      navigate('/main', { state: { id: logincheck[0].id, rol: rol } });
+      localStorage.setItem('dataKey', JSON.stringify({ id: logincheck[0].id, rol: rol }));
+      navigate('/main');
     } else if(logincheck){
       setErrorMsg('Usuario o Contraseña son incorrectos');
     }
@@ -37,7 +38,7 @@ function Login() {
 
   const ButtonPress = () => {
     setLoading(true);
-    const url = `http://localhost:2000/desarrollador/login`;
+    const url = `http://10.22.172.125:2000/desarrollador/login`;
     const data = {
       usuario: `${Usuario}`,
       contrasena: `${Contrasena}`,
