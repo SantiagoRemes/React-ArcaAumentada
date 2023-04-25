@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {ReactComponent as Bars} from '../bars.svg'
+import {ReactComponent as Bars} from '../../images/bars.svg'
 import Nav from 'react-bootstrap/Nav';
 import Metrics from './metrics';
 import Recenthist from './recenthistory';

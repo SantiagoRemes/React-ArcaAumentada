@@ -3,7 +3,7 @@ import "../../css/Menu.css";
 import "../../css/style.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; //npm install --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import {ReactComponent as Bars} from '../bars.svg';
+import {ReactComponent as Bars} from '../../images/bars.svg'
 
 const Menu = () =>{
     const [isOpen, setIsOpen] = useState(false);

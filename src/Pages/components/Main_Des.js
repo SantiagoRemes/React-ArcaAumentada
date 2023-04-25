@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {ReactComponent as Bars} from '../bars.svg'
+import {ReactComponent as Bars} from '../../images/bars.svg'
 import Nav from 'react-bootstrap/Nav';
 import Metrics from './metrics';
 import Recenthist from './recenthistory';
@@ -31,7 +31,7 @@ function Main_Des(props) {
             </div>
             <center>
                 <Metrics />
-                <Recenthist data = {id} level = 'desarrollador'/>
+                <Recenthist id = {id} rol = 'desarrollador'/>
                 <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                 <Nav.Link href={`/visita`}><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
                 <Nav.Link href={`/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>

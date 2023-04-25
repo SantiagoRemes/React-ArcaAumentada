@@ -1,6 +1,7 @@
 import React from "react";
 
 const Metrics = () =>{
+  return(
     <div className='metrics'>
             <div className='created_sol'>
               <b><p className='amnt'>0</p></b>
@@ -15,6 +16,7 @@ const Metrics = () =>{
               <p className='lbl'>Solicitudes completadas</p>
             </div>
     </div>
+  )
 }
 
 export default Metrics

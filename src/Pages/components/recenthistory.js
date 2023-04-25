@@ -5,8 +5,7 @@ import Sol_prev from "./Sol_preview";
 import { useState, useEffect } from "react";
 
 const Recenthist = (props) =>{
-    const id = props.data;
-    const level = props.level
+    const { id, rol } = props;
     const [Solicitud, setSolicitud] = useState([]);
     const [SolicitudAdmin, setSolicitudAdmin] = useState([]);
 
@@ -22,7 +21,7 @@ const Recenthist = (props) =>{
         
     }, []);
 
-    if(level === 'desarrollador'){
+    if(rol === 'desarrollador'){
         
         return(
             <div className='recent_sol'>
@@ -36,7 +35,7 @@ const Recenthist = (props) =>{
             </div>
         )
     }
-    else if(level === 'admin'){
+    else if(rol === 'admin'){
         
         return(
             <div className='recent_sol'>

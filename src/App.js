@@ -9,7 +9,6 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import Historial from './Pages/historial';
 import Solcheck from './Pages/solcheck';
 import Dashboard from './Pages/dashboard';
-import MainAd from './Pages/main_administrador';
 import HistorialAd from './Pages/historial_administrador';
 import SolcheckAd from './Pages/solcheck_admin';
 
@@ -20,7 +19,6 @@ function App() {
         <Routes>
           <Route path='/' element={<LogIn />}/>
           <Route path='/main' element={<Main />}/>
-          <Route path='/mainadmin' element={<MainAd />}/>
           <Route path='/visita' element={<Visita />}/>
           <Route path='/unity' element={<Unity />}/>
           <Route path='/solicitud' element={<Solicitud />}/>

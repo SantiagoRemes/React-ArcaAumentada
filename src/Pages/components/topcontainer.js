@@ -1,5 +1,5 @@
 import React from "react";
-import {ReactComponent as Bars} from '../bars.svg'
+import {ReactComponent as Bars} from '../../images/bars.svg'
 import Menu from "./Menu";
 
 const TopContainer = () =>{
