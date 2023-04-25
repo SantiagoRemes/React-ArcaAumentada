@@ -28,69 +28,36 @@ const Table = (props) =>{
                     </tr>
         )
     }else if(type === 'solic'){
-        return(
-            <div>
-                {/* <table class='table'>
-                    <thead class='tableheader'>
-                        <tr>
-                            <th>Cantidad</th>
-                            <th>Modelo</th>
-                            <th>Código único EDF</th>
-                            <th># de puertas</th>
-                            <th> Movimiento</th>
-                            <th>Reemplaza a</th>
-                            <th>Razón</th>
-                            <th>Checklist</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type='text'/></td>
-                            <td><input type='text'/></td>
-                            <td><input type='text'/></td>
-                            <td><input type='text'/></td>
-                            <td>
-                                <select>
-                                    <option value='1'>Agregar</option>
-                                    <option value='2'>Cambiar</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type='text' placeholder='Código'/>
-                            </td>
-                            <td>
-                                <input type='text' placeholder='Razón'/>
-                            </td>
-                            <td>
-                                <Checklist />
-                            </td>
-                    </tr>
-                        {list.map((item) => (
+        return(                    
                             <tr>
-                                <td>{item.cantidad}</td>
-                                <td>{item.modelo}</td>
-                                <td>{item.codigo}</td>
-                                <td>{item.puertas}</td>
-                                <td>
-                                    <select>
-                                        <option value='1'>Agregar</option>
-                                        <option value='2'>Cambiar</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type='text' placeholder='Código'/>
-                                </td>
-                                <td>
-                                    <input type='text' placeholder='Razón'/>
-                                </td>
-                                <td>
-                                    <Checklist />
-                                </td>
+                            {/* //     <td>{item.cantidad}</td>
+                            //     <td>
+                            //         <select>
+                            //             <option value={item.modelo}>{item.modelo}</option>
+                            //         </select>
+                            //     </td>
+                            //     <td>
+                            //         <select>
+                            //             <option value={item.codigo}>{item.codigo}</option>
+                            //         </select>
+                            //     </td>
+                            //     <td>{item.puertas}</td>
+                            //     <td>
+                            //         <select>
+                            //             <option value='1'>Agregar</option>
+                            //             <option value='2'>Cambiar</option>
+                            //         </select>
+                            //     </td>
+                            //     <td>
+                            //         <input type='text' placeholder='Código'/>
+                            //     </td>
+                            //     <td>
+                            //         <input type='text' placeholder='Razón'/>
+                            //     </td>
+                            //     <td>
+                            //         <Checklist />
+                            //     </td> */}
                             </tr>
-                        ))}
-                    </tbody>
-                </table> */}
-            </div>
         )
     }
     

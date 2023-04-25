@@ -9,7 +9,7 @@ function Sol_card(props) {
     const item = props.item;
     const id = props.id;
     return(
-        <Nav.Link href={`/${id}/solcheck/${item.idSolicitud}`}>
+        <Nav.Link href={`/${id}/solcheckadmin/${item.idSolicitud}`}>
         <div className='sep'>
             <div className='twop'>
                 <p>{item.idSolicitud}</p>

@@ -38,7 +38,9 @@ function Solicitud() {
 
   const [numeroclientenegocio, setNegocionumerocliente] = useState();
   const [tamanonegocio, setNegociotamano] = useState();
-  //const [puertasnegocio, setNegociopuertas] = useState();
+  const [puertasnegocio, setNegociopuertas] = useState();
+  const [puertasact, setNegociopuertasact] = useState();
+  const [modelo, setModelo] = useState();
   //const [ventasactualesnegocio, setNegocioventasactuales] = useState();
   //const [puertassolicitarnegocio, setNegociopuertassolicitar] = useState();
 
@@ -50,15 +52,17 @@ function Solicitud() {
     .then((data)=> setDesarrollador(data));
   }, []);
 
-  const handleCediChange = (event) => {
-    let nombre = event.target.value;
-    setCeditext(nombre);
+  useEffect(() => {
+    let nombre = ceditext
     if(nombre === ''){
       nombre = 'a'
     }
     fetch(`http://localhost:2000/CEDI/${nombre}`)
     .then( (res) => res.json())
     .then((data)=> setCEDI(data));
+  }, [ceditext])
+
+  useEffect(() => {
     try{
       if(CEDI.length !== 0){
         setCedipais(CEDI && CEDI[0].pais);
@@ -72,7 +76,11 @@ function Solicitud() {
     catch(err){
 
     }
+  }, [CEDI])
 
+  const handleCediChange = (e) => {
+    
+    setCeditext(e.currentTarget.value);
   };
 
   const handleClienteChange = (event) => {
@@ -141,6 +149,21 @@ function Solicitud() {
     fetch(`http://localhost:2000/refrisolicitado/refriportienda/${numeroclientenegocio}`)
     .then( (res) => res.json())
     .then((data)=> setRefriporTienda(data));
+
+    fetch(`http://localhost:2000/refrisolicitado/sum/${numeroclientenegocio}`)
+    .then( (res) => res.json())
+    .then((data)=> setNegociopuertas(data));
+    try{
+      if(puertasnegocio.length !== 0){
+        setNegociopuertasact(puertasnegocio && puertasnegocio[0].puertastot)
+      }
+      else if(puertasnegocio !== ''){
+        setNegociopuertasact('')
+      }
+    }
+    catch(err){
+      
+    }
   };
  
   return (
@@ -232,7 +255,7 @@ function Solicitud() {
             <input type='text' placeholder='[Ventas Actuales]'></input><br/>
             <br></br><br></br>
             <label class='slabel'>Número actual de puertas</label>
-            <input type='text' placeholder='[Número actual de puertas]'></input><br/>
+            <input type='text' placeholder='[Número actual de puertas]' value={puertasact}></input><br/>
             <br></br><br></br>
             <label class='slabel'>Número de puertas a solicitar</label>
             <input type='text' placeholder='[Número de puertas a solicitar]'></input><br/>
@@ -252,13 +275,31 @@ function Solicitud() {
                     </thead>
                     <tbody>
                     {RefriporTienda && RefriporTienda.map((item) => (
-                <Table type='curr' item={item}/>
+                <Table type='curr' item={item} />
                 ))}
                     </tbody>
                 </table>
             <br></br><br></br>
             <label class='header2'>Listado de EDF a solicitar</label>
-            <Table type='solic'/><br/>
+            <table class='table'>
+                    <thead class='tableheader'>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Modelo</th>
+                            <th>Código único EDF</th>
+                            <th># de puertas</th>
+                            <th> Movimiento</th>
+                            <th>Reemplaza a</th>
+                            <th>Razón</th>
+                            <th>Checklist</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {modelo && modelo.map((item) => (
+                  <Table type='solic' item={item} />
+                ))}
+              </tbody>
+            </table>
             <br></br><br></br>
             <label class='slabel'>Evidencia</label>
 

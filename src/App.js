@@ -9,7 +9,9 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import Historial from './Pages/historial';
 import Solcheck from './Pages/solcheck';
 import Dashboard from './Pages/dashboard';
-
+import MainAd from './Pages/main_administrador';
+import HistorialAd from './Pages/historial_administrador';
+import SolcheckAd from './Pages/solcheck_admin';
 
 function App() {
   return (
@@ -17,12 +19,15 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<LogIn />}/>
-          <Route path=':id/main' element={<Main />}/>
-          <Route path=':id/visita' element={<Visita />}/>
+          <Route path='/main' element={<Main />}/>
+          <Route path='/mainadmin' element={<MainAd />}/>
+          <Route path='/visita' element={<Visita />}/>
           <Route path='/unity' element={<Unity />}/>
-          <Route path=':id/solicitud' element={<Solicitud />}/>
-          <Route path=':id/historial' element={<Historial />}/>
-          <Route path=':id/solcheck/:idSolicitud' element={<Solcheck />}/>
+          <Route path='/solicitud' element={<Solicitud />}/>
+          <Route path='/historial' element={<Historial />}/>
+          <Route path='/historialadmin' element={<HistorialAd />}/>
+          <Route path='/solcheck/:idSolicitud' element={<Solcheck />}/>
+          <Route path='/solcheckadmin/:idSolicitud' element={<SolcheckAd />}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </Router>

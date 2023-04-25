@@ -1,9 +1,7 @@
 import React from 'react'
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
@@ -11,16 +9,35 @@ function Login() {
   const navigate = useNavigate();
   const [Usuario, setUsuario] = useState("");
   const [Contrasena, setContrasena] = useState("");
-  const [exito, setExito] = useState(false);
-  const [error, setError] = useState("");
-  const [Desarrollador, setDesarrollador] = useState("");
-  const [Chofer, setChofer] = useState("");
-  const [Administrador, setAdministrador] = useState("");
+  const [logincheck, setLogincheck] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const LogIn = () => {
-    const urlDes = `http://localhost:2000/desarrollador/login`;
-    const urlAdm = `http://localhost:2000/administrador/login`;
-    const urlChf = `http://localhost:2000/chofer/login`;
+
+
+  useEffect(() => {
+    let rol = '';
+    if (logincheck && logincheck[0]) {
+      if (logincheck[0].Desarrollador === 1) {
+        rol = 'Des';
+      } else if (logincheck[0].Administrador === 1) {
+        rol = 'Admin';
+      } else if (logincheck[0].Chofer === 1) {
+        rol = 'Chofer';
+      }
+    }
+
+    if (rol !== '') {
+      navigate('/main', { state: { id: logincheck[0].id, rol: rol } });
+    } else if(logincheck){
+      setErrorMsg('Usuario o Contraseña son incorrectos');
+    }
+    
+  }, [logincheck])
+
+  const ButtonPress = () => {
+    setLoading(true);
+    const url = `http://localhost:2000/desarrollador/login`;
     const data = {
       usuario: `${Usuario}`,
       contrasena: `${Contrasena}`,
@@ -32,56 +49,36 @@ function Login() {
       },
       body: JSON.stringify(data),
     };
-    fetch(urlDes, options)
+    fetch(url, options)
     .then((res) => res.json())
-    .then((data) => setDesarrollador(data))
+    .then((data) => {setLoading(false); setLogincheck(data)})
       .catch((err) => {
-
-        setError(err);
-        setExito(false);
-    });
-    fetch(urlAdm, options)
-    .then((res) => res.json())
-    .then((data) => setAdministrador(data))
-      .catch((err) => {
-
-        setError(err);
-        setExito(false);
-    });
-    fetch(urlChf, options)
-    .then((res) => res.json())
-    .then((data) => setChofer(data))
-      .catch((err) => {
-
-        setError(err);
-        setExito(false);
-    });
-      console.log(Desarrollador)
-      if(Desarrollador.length != 0){
-        alert('Desarrollador')
-        navigate(`${Desarrollador[0].idDesarrollador}/main`);
+        setLoading(false);
       }
-      else if(Administrador.length != 0){
-        alert('Administrador')
-      }
-      else if(Chofer.length != 0){
-        alert('Chofer')
-      }
-    
+    );
   };
 
   
   return (
     <div className='contlogin'>
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Arca_Continental_logo.svg/1200px-Arca_Continental_logo.svg.png" alt="Arca Continental" />
-        <br></br><br></br>
-        <h1 class='head1'>Inicio de Sesión</h1>
-        <br></br>
-        <form>
-          <input type="text" placeholder="Usuario" controlId="usuario" onChange={(e) => setUsuario(e.target.value)}/><br></br><br></br>
-          <input type="password" placeholder="Contraseña" controlId="contrasena" onChange={(e) => setContrasena(e.target.value)}/><br></br><br></br>
-          <button class="bot" type="submit" onClick={(e) => {e.preventDefault(); LogIn();}}>Ingresar</button>
-        </form>
+      {loading ? (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>  
+      ) : (
+        <div>
+          <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Arca_Continental_logo.svg/1200px-Arca_Continental_logo.svg.png" alt="Arca Continental" />
+          <br></br><br></br>
+          <h1 class='head1'>Inicio de Sesión</h1>
+          <br></br>
+          <div>
+            <input type="text" placeholder="Usuario" controlId="usuario" value={Usuario} onChange={(e) => setUsuario(e.target.value)}/><br></br><br></br>
+            <input type="password" placeholder="Contraseña" controlId="contrasena" value={Contrasena} onChange={(e) => setContrasena(e.target.value)}/><br></br><br></br>
+            {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
+            <button class="bot" type="submit" onClick={(e) => {e.preventDefault(); ButtonPress();}}>Ingresar</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
