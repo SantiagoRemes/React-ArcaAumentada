@@ -1,6 +1,9 @@
 import React from "react";
+import Main_Admin_mobile from "./Main_admin_mobile";
+import Main_Admin_computer from "./Main_Admin_computer";
 
-const dashboard = () =>{
+const Dashboard = (props) =>{
+    const {id} = props;
     const userAgent = navigator.userAgent;
 
     const isComputer = !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
@@ -10,13 +13,13 @@ const dashboard = () =>{
     if(isComputer){
         return(
             <div>
-                
+                <Main_Admin_computer id={id}/>
             </div>
         )
     }else if(isIPhone || isAndroid){
         return(
             <div>
-                
+                <Main_Admin_mobile id={id} />
             </div>
             
         )
@@ -25,4 +28,4 @@ const dashboard = () =>{
 
 }
 
-export default dashboard;
+export default Dashboard;

@@ -1,34 +1,51 @@
 import React from 'react';
-import QRcode from '../images/qricon.png';
 import BackArrow from '../images/backarrow.png';
-import style from '../css/style.css';
+import '../css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Routes, Route, Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import { useState, useEffect } from "react";
 import Table from './components/tabla';
-import { handleidChange } from './components/tabla'
+import { useNavigate } from 'react-router-dom';
 
 function Solicitud() {
-  let {id, idSolicitud} = useParams();
 
-  const [CEDI, setCEDI] = useState();
+  const navigate = useNavigate();
+  var id = '';
+  var rol = '';
+  try{
+    var { id, rol }  = JSON.parse(localStorage.getItem('dataKey'));
+  }
+  catch{
+    var id = '';
+    var rol = '';
+  }
+  useEffect(() => {
+    if(id === ''){
+      navigate('/')
+    }
+  }, [])
+
+  let {idSolicitud} = useParams();
+
+  const [Solicituddatos, setSolicituddatos] = useState()
+
+  const [fecha_solicitud, setFechasolicitud] = useState();
   const [paiscedi, setCedipais] = useState();
   const [regioncedi, setCediregion] = useState();
   const [ceditext, setCeditext] = useState();
   
-  const [Desarrollador, setDesarrollador] = useState();
+  const [numdesarrollador, setNumdesarrollador] = useState();
+  const [nombredesarrollador, setNombredesarrollador] = useState();
+  const [descontacto, setDescontacto] = useState();
 
   const [nombrecliente, setClientenombre] = useState();
-  const [cliente, setCliente] = useState();
   const [domiciliocliente, setClientedomicilio] = useState();
   const [coloniacliente, setClientecolonia] = useState();
   const [ciudadcliente, setClienteciudad] = useState();
   const [estadocliente, setClienteestado] = useState();
   const [celularcliente, setClientecelular] = useState();
 
-  const [negocio, setNegocio] = useState();
   const [nombrenegocio, setNegocionombre] = useState();
   const [direccionnegocio, setNegociodireccion] = useState();
   const [colonianegocio, setNegociocolonia] = useState();
@@ -38,270 +55,253 @@ function Solicitud() {
 
   const [numeroclientenegocio, setNegocionumerocliente] = useState();
   const [tamanonegocio, setNegociotamano] = useState();
-  const [puertasnegocio, setNegociopuertas] = useState();
-  const [puertasact, setNegociopuertasact] = useState();
   //const [ventasactualesnegocio, setNegocioventasactuales] = useState();
-  //const [puertassolicitarnegocio, setNegociopuertassolicitar] = useState();
+  const [puertasact, setNegociopuertasact] = useState();
+  const [puertassolicitarnegocio, setNegociopuertassolicitar] = useState();
 
-  const [RefriporTienda, setRefriporTienda] = useState({})
-
-  const [Solicituddatos, setSolicituddatos] = useState({})
-
-  useEffect(() => {
-    fetch(`http://localhost:2000/solicitud/idsol/${idSolicitud}`)
-    .then( (res) => res.json())
-    .then((data)=> setSolicituddatos(data));
-
-    fetch(`http://localhost:2000/desarrollador/${id}`)
-    .then( (res) => res.json())
-    .then((data)=> setDesarrollador(data));
-    handleCediChange();
-    handleNegocioChange();
-    handleClienteChange();
-  }, []);
+  const [RefriporTienda, setRefriporTienda] = useState();
+  const [RefriporTiendaMov, setRefriporTiendaMov] = useState();
+  const [puertasnegocio, setNegociopuertas] = useState();
+  const [solicitudrefris, setRefriSolicitud] = useState();
+  const [solicitudrefrispuertas, setRefriSolicitudpuertas] = useState();
 
   useEffect(() => {
-    let nombre = ceditext
-    if(nombre === ''){
-      nombre = 'a'
-    }
-    fetch(`http://localhost:2000/CEDI/${nombre}`)
-    .then( (res) => res.json())
-    .then((data)=> setCEDI(data));
-  }, [ceditext])
+    setNegociopuertasact(puertasnegocio && puertasnegocio[0].puertastot);
+  }, [puertasnegocio])
 
   useEffect(() => {
-    try{
-      if(CEDI.length !== 0){
-        setCedipais(CEDI && CEDI[0].pais);
-        setCediregion(CEDI && CEDI[0].region);
+    const url = `http://localhost:2000/refrisolicitado/refriportienda`;
+    const data = {
+      idTienda: `${numeroclientenegocio}`,
+      idSolicitud: `${idSolicitud}`,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => {setRefriporTienda(data)})
+      .catch((err) => {
       }
-      else if(paiscedi !== ''){
-        setCedipais('')
-        setCediregion('')
+    );
+
+    const url2 = `http://localhost:2000/refrisolicitado/refriportiendamov`;
+    const data2 = {
+      idTienda: `${numeroclientenegocio}`,
+      idSolicitud: `${idSolicitud}`,
+      movimiento: `Cambiar`
+    };
+    const options2 = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data2),
+    };
+    fetch(url2, options2)
+    .then((res) => res.json())
+    .then((data) => {setRefriporTiendaMov(data)})
+      .catch((err) => {
       }
-    }
-    catch(err){
-
-    }
-  }, [CEDI])
-
-  const handleCediChange = () => {
-    let nombre = Solicituddatos && Solicituddatos[0].CEDINombre
-    setCeditext(nombre);
-  };
-
-  const handleClienteChange = () => {
-    let nombre = negocio && negocio[0].idDueño
-    setClientenombre(nombre);
-    if(nombre === ''){
-      nombre = 'a'
-    }
-    fetch(`http://localhost:2000/dueno/id/${nombre}`)
-    .then( (res) => res.json())
-    .then((data)=> setCliente(data));
-    try{
-      if(cliente.length !== 0){
-        setClientedomicilio(cliente && cliente[0].calle_no);
-        setClientecolonia(cliente && cliente[0].colonia);
-        setClienteciudad(cliente && cliente[0].ciudad);
-        setClienteestado(cliente && cliente[0].estado);
-        setClientecelular(cliente && cliente[0].celular);
-      }
-      else if(domiciliocliente !== ''){
-        setClientedomicilio('');
-        setClientecolonia('');
-        setClienteciudad('');
-        setClienteestado('');
-        setClientecelular('');
-      }
-    }
-    catch(err){
-
-    }
-
-  };
-
-  const handleNegocioChange = () => {
-    let nombre = Solicituddatos && Solicituddatos[0].idTienda
-    setNegocionombre(nombre);
-    if(nombre === ''){
-      nombre = 'a'
-    }
-    fetch(`http://localhost:2000/tienda/id/${nombre}`)
-    .then( (res) => res.json())
-    .then((data)=> setNegocio(data));
-    try{
-      if(negocio.length !== 0){
-        setNegociodireccion(negocio && negocio[0].calle_no);
-        setNegociocolonia(negocio && negocio[0].colonia);
-        setNegociociudad(negocio && negocio[0].ciudad);
-        setNegocioestado(negocio && negocio[0].estado);
-        setNegociocelular(negocio && negocio[0].celular);
-        setNegocionumerocliente(negocio && negocio[0].idTienda)
-        setNegociotamano(negocio && negocio[0].tamaño)
-      }
-      else if(domiciliocliente !== ''){
-        setNegociodireccion('');
-        setNegociocolonia('');
-        setNegociociudad('');
-        setNegocioestado('');
-        setNegociocelular('');
-        setNegocionumerocliente('');
-        setNegociotamano('');
-      }
-    }
-    catch(err){
-
-    }
-    fetch(`http://localhost:2000/refrisolicitado/refriportienda/${numeroclientenegocio}`)
-    .then( (res) => res.json())
-    .then((data)=> setRefriporTienda(data));
+    );
 
     fetch(`http://localhost:2000/refrisolicitado/sum/${numeroclientenegocio}`)
     .then( (res) => res.json())
     .then((data)=> setNegociopuertas(data));
-    try{
-      if(puertasnegocio.length !== 0){
-        setNegociopuertasact(puertasnegocio && puertasnegocio[0].puertastot)
-      }
-      else if(puertasnegocio !== ''){
-        setNegociopuertasact('')
-      }
+
+  }, [numeroclientenegocio])
+
+  useEffect(() => {
+    setFechasolicitud(Solicituddatos && Solicituddatos[0].fecha_solicitud.substring(0, 10))
+    setCeditext(Solicituddatos && Solicituddatos[0].CEDINombre[0]);
+    setCediregion(Solicituddatos && Solicituddatos[0].region);
+    setCedipais(Solicituddatos && Solicituddatos[0].pais);
+
+    setNumdesarrollador(Solicituddatos && Solicituddatos[0].idDesarrollador[0])
+    setNombredesarrollador(Solicituddatos && Solicituddatos[0].nombre[3])
+    setDescontacto(Solicituddatos && Solicituddatos[0].contacto[2])
+
+    setClientenombre(Solicituddatos && Solicituddatos[0].nombre_Completo);
+    setClientedomicilio(Solicituddatos && Solicituddatos[0].calle_no[1]);
+    setClientecolonia(Solicituddatos && Solicituddatos[0].colonia[1]);
+    setClienteciudad(Solicituddatos && Solicituddatos[0].ciudad[1]);
+    setClienteestado(Solicituddatos && Solicituddatos[0].estado[1]);
+    setClientecelular(Solicituddatos && Solicituddatos[0].celular[1]);
+
+    setNegocionombre(Solicituddatos && Solicituddatos[0].nombre[0]);
+    setNegociodireccion(Solicituddatos && Solicituddatos[0].calle_no[0]);
+    setNegociocolonia(Solicituddatos && Solicituddatos[0].colonia[0]);
+    setNegociociudad(Solicituddatos && Solicituddatos[0].ciudad[0]);
+    setNegocioestado(Solicituddatos && Solicituddatos[0].estado[0]);
+    setNegociocelular(Solicituddatos && Solicituddatos[0].celular[0]);
+
+    setNegocionumerocliente(Solicituddatos && Solicituddatos[0].idTienda[0])
+    setNegociotamano(Solicituddatos && Solicituddatos[0].tamaño)
+    //
+    if(solicitudrefrispuertas && solicitudrefrispuertas.length !== 0){
+      setNegociopuertassolicitar(solicitudrefrispuertas && solicitudrefrispuertas[0].puertas)
     }
-    catch(err){
-      
+    else{
+      setNegociopuertassolicitar(0)
     }
-  };
- 
+  }, [Solicituddatos])
+
+  useEffect(() => {
+    fetch(`http://localhost:2000/solicitud/solicitudall/${idSolicitud}`)
+    .then( (res) => res.json())
+    .then((data)=> setSolicituddatos(data));
+
+    fetch(`http://localhost:2000/refrisolicitado/refrisolicitud/${idSolicitud}`)
+    .then( (res) => res.json())
+    .then((data)=> setRefriSolicitud(data));
+
+    fetch(`http://localhost:2000/refrisolicitado/refrisolicitudpuertas/${idSolicitud}`)
+    .then( (res) => res.json())
+    .then((data)=> setRefriSolicitudpuertas(data));
+  }, []);
+
   return (
     <div>
       <div class='redbg'>
-            <Nav.Link href="/unity"><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
-            <h1 class='header'>Datos de la Solicitud</h1>
+        <Nav.Link href="/historial"><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
+        <h1 class='header'>Datos de la Solicitud</h1>
       </div>
       <br></br><br></br><br></br>
       <h2 class='header2'>Datos de la solicitud</h2>
       <div>
-          <form>
-            <label class='slabel'>Fecha</label>
-            <input type='text' placeholder='[Fecha]' id='Fecha' value={new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()}></input><br></br>
-            <br></br><br></br>
-            <label class='slabel'>CEDI</label>
-            <input type='text' placeholder='[CEDI]' value={ceditext} onChange={handleCediChange}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>País</label>
-            <input type='text' placeholder='[País]' value={paiscedi} readOnly ></input><br/>
-            <br></br><br></br><br></br>
-            <label class='slabel'>Región</label>
-            <input type='text' placeholder='[Región]' value={regioncedi} readOnly ></input><br/>
-            <br></br><br></br>
+        <form>
+          <label class='slabel'>Fecha</label>
+          <input type='text' placeholder='[Fecha]' id='Fecha' value={fecha_solicitud}></input><br></br>
+          <br></br><br></br>
+          <label class='slabel'>CEDI</label>
+          <input type='text' placeholder='[CEDI]' value={ceditext}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>País</label>
+          <input type='text' placeholder='[País]' value={paiscedi}></input><br/>
+          <br></br><br></br><br></br>
+          <label class='slabel'>Región</label>
+          <input type='text' placeholder='[Región]' value={regioncedi} ></input><br/>
+          <br></br><br></br>
             
-            {Desarrollador && Desarrollador.map((item) => 
-              <div>
-                <h2 class='header2'>Datos del Desarrollador</h2>
-                <label class='slabel'>Número de empleado</label>
-                <input type='text' placeholder='[Num Empleado]' value={item.idDesarrollador}></input><br></br>
-                <br></br><br></br>
-                <label class='slabel'>Nombre del desarrollador</label>
-                <input type='text' placeholder='[Juan Pérez]' value={item.nombre}></input>
-                <br></br><br></br><br></br>
-                <label class='slabel'>Celular del desarrollador</label>
-                <input type='text' placeholder='[Celular]' value={item.contacto}></input>
-                <br></br><br></br>
-              </div>
-            )}
+          <h2 class='header2'>Datos del Desarrollador</h2>
+          <label class='slabel'>Número de empleado</label>
+          <input type='text' placeholder='[Num Empleado]' value={numdesarrollador}></input><br></br>
+          <br></br><br></br>
+          <label class='slabel'>Nombre del desarrollador</label>
+          <input type='text' placeholder='[Juan Pérez]' value={nombredesarrollador}></input>
+          <br></br><br></br><br></br>
+          <label class='slabel'>Celular del desarrollador</label>
+          <input type='text' placeholder='[Celular]' value={descontacto}></input>
+          <br></br><br></br>
 
-            <h2 class='header2'>Datos del Cliente</h2>
-            <label class='slabel'>Nombre del cliente</label>
-            <input type='text' placeholder='[Nombre del cliente]' value={nombrecliente} onChange={handleClienteChange}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Domicilio (Calle y Número)</label>
-            <input type='text' placeholder='[Domicilio]' value={domiciliocliente}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Colonia</label>
-            <input type='text' placeholder='[Colonia]' value={coloniacliente}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Ciudad</label>
-            <input type='text' placeholder='[Ciudad]' value={ciudadcliente}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Estado</label>
-            <input type='text' placeholder='[Estado]' value={estadocliente}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Celular</label>
-            <input type='text' placeholder='[Celular]' value={celularcliente}></input><br/>
-            <br></br><br></br>
+          <h2 class='header2'>Datos del Cliente</h2>
+          <label class='slabel'>Nombre del cliente</label>
+          <input type='text' placeholder='[Nombre del cliente]' value={nombrecliente}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Domicilio (Calle y Número)</label>
+          <input type='text' placeholder='[Domicilio]' value={domiciliocliente}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Colonia</label>
+          <input type='text' placeholder='[Colonia]' value={coloniacliente}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Ciudad</label>
+          <input type='text' placeholder='[Ciudad]' value={ciudadcliente}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Estado</label>
+          <input type='text' placeholder='[Estado]' value={estadocliente}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Celular</label>
+          <input type='text' placeholder='[Celular]' value={celularcliente}></input><br/>
+          <br></br><br></br>
 
-            <h2 class='header2'>Datos del Negocio</h2>
-            <label class='slabel'>Nombre del negocio</label>
-            <input type='text' placeholder='[Nombre del negocio]' value={nombrenegocio} onChange={handleNegocioChange}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Dirección (Calle y Número)</label>
-            <input type='text' placeholder='[Dirección]' value={direccionnegocio}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Colonia</label>
-            <input type='text' placeholder='[Colonia]' value={colonianegocio}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Ciudad</label>
-            <input type='text' placeholder='[Ciudad]' value={ciudadnegocio}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Estado</label>
-            <input type='text' placeholder='[Estado]' value={estadonegocio}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Celular</label>
-            <input type='text' placeholder='[Celular]' value={celularnegocio}></input><br/>
-            <br></br><br></br>
+          <h2 class='header2'>Datos del Negocio</h2>
+          <label class='slabel'>Nombre del negocio</label>
+          <input type='text' placeholder='[Nombre del negocio]' value={nombrenegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Dirección (Calle y Número)</label>
+          <input type='text' placeholder='[Dirección]' value={direccionnegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Colonia</label>
+          <input type='text' placeholder='[Colonia]' value={colonianegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Ciudad</label>
+          <input type='text' placeholder='[Ciudad]' value={ciudadnegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Estado</label>
+          <input type='text' placeholder='[Estado]' value={estadonegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Celular</label>
+          <input type='text' placeholder='[Celular]' value={celularnegocio}></input><br/>
+          <br></br><br></br>
 
-            <h2 class='header2'>Datos de factibilidad</h2>
-            <label class='slabel'>Número de Cliente</label>
-            <input type='text' placeholder='[Número de Cliente]' value={numeroclientenegocio}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Tamaño</label>
-            <input type='text' placeholder='[Tamaño]' value={tamanonegocio}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Ventas Actuales</label>
-            <input type='text' placeholder='[Ventas Actuales]'></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Número actual de puertas</label>
-            <input type='text' placeholder='[Número actual de puertas]' value={puertasact}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>Número de puertas a solicitar</label>
-            <input type='text' placeholder='[Número de puertas a solicitar]'></input><br/>
-            <br></br><br></br>
+          <h2 class='header2'>Datos de factibilidad</h2>
+          <label class='slabel'>Número de Cliente</label>
+          <input type='text' placeholder='[Número de Cliente]' value={numeroclientenegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Tamaño</label>
+          <input type='text' placeholder='[Tamaño]' value={tamanonegocio}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Ventas Actuales</label>
+          <input type='text' placeholder='[Ventas Actuales]'></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Número actual de puertas</label>
+          <input type='text' placeholder='[Número actual de puertas]' value={puertasact}></input><br/>
+          <br></br><br></br>
+          <label class='slabel'>Número de puertas a solicitar</label>
+          <input type='text' placeholder='[Número de puertas a solicitar]' value={puertassolicitarnegocio}></input><br/>
+          <br></br><br></br>
 
-            <label class='header2'>Listado de EDF actual</label>
-            <table class='table'>
-                    <thead class='tableheader'> 
-                        <tr>
-                            <th>Cantidad</th>
-                            <th>Modelo</th>
-                            <th>Código único EDF</th>
-                            <th># de puertas</th>
-                            <th> Movimiento</th>
-                            <th>Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {/* {RefriporTienda && RefriporTienda.map((item) => (
+          <label class='header2'>Listado de EDF actual</label>
+          <table class='table'>
+            <thead class='tableheader'> 
+              <tr>
+                <th>Cantidad</th>
+                <th>Modelo</th>
+                <th>Código único EDF</th>
+                <th># de puertas</th>
+                <th> Movimiento</th>
+                <th>Razón</th>
+              </tr>
+            </thead>
+            <tbody>
+              {RefriporTienda && RefriporTienda.map((item) => (
                 <Table type='curr' item={item}/>
-                ))} */}
-                    </tbody>
-                </table>
-            <br></br><br></br>
-            <label class='header2'>Listado de EDF a solicitar</label>
-            <Table type='solic'/><br/>
-            <br></br><br></br>
-            <label class='slabel'>Evidencia</label>
-
-          </form>
-      </div>
-      <div>
-        <img src='a.jpg' width='200px' height='200px'></img>
+              ))}
+            </tbody>
+          </table>
+          <br></br><br></br>
+          <label class='header2'>Listado de EDF a solicitar</label>
+          <table class='table'>
+            <thead class='tableheader'> 
+              <tr>
+                <th>Cantidad</th>
+                <th>Modelo</th>
+                <th>Código único EDF</th>
+                <th># de puertas</th>
+                <th>Movimiento</th>
+                <th>Remplaza</th>
+                <th>Razón</th>
+                <th>Checklist</th>
+                <th>Evidencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              {solicitudrefris && solicitudrefris.map((item) => (
+                <Table type='solic' item={item} RefriSolicitud={RefriporTiendaMov}/>
+              ))}
+            </tbody>
+          </table>
+          <br></br><br></br>
+        </form>
       </div>
       <br></br><br></br>
       <div>
-        <Nav.Link href="/unity" class='navinline'><button class='botspace'>Agregar</button></Nav.Link><br></br>
-        <Nav.Link href={`/${id}/main`} class='navinline'><button class='botspace'>Terminar</button></Nav.Link>
+        <button class='botspace'>Aceptar cambios</button>
+        <button class='botspace'>Borrar solicitud</button>
       </div>
     </div>
   )

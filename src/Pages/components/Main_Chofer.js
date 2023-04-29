@@ -3,6 +3,7 @@ import {ReactComponent as Bars} from '../../images/bars.svg'
 import Nav from 'react-bootstrap/Nav';
 import Metrics from './metrics';
 import Recenthist from './recenthistory';
+import Menu from './Menu'
 
 function Main_Des(props) {
     const { id }  = props;
@@ -10,32 +11,25 @@ function Main_Des(props) {
     const [Desarrollador, setDesarrollador] = useState();
 
     useEffect(() => {
-      fetch(`http://localhost:2000/desarrollador/${id}`)
+      fetch(`http://localhost:2000/chofer/${id}`)
       .then( (res) => res.json())
       .then((data)=> setDesarrollador(data));
     }, []);
   
     return (
-        <div className="container">
-            <div className='topContainer'>
+        <div id='outer-container'>
+            <Menu outerContainerId={'outer-container'} pageWrapId={'page-wrap'} id={id} rol={'Chofer'} />
+            <div className="container" id='page-wrap'>
+                <div className='topContainer'>
+                    <center>
+                    <h1 className='topText'>Hola, {Desarrollador && Desarrollador[0].nombre}</h1>
+                    </center>
+                </div> 
                 <center>
-                <h1 className='topText'>Hola, {Desarrollador && Desarrollador[0].nombre}</h1>
-                </center>
-                <Bars className="menu_btn"/>
-            </div> 
-            <div className='percentage'>
-                <center>
-                <h1>0%</h1>
-                <p>De la meta mensual alcanzado</p>
+                    <Metrics id={id} rol={'Chofer'}/>
+                    <Recenthist  id= {id} rol= 'Chofer'/>
                 </center>
             </div>
-            <center>
-                <Metrics />
-                <Recenthist data = {id} level = 'desarrollador'/>
-                <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                <Nav.Link href={`/visita`}><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
-                <Nav.Link href={`/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>
-            </center>
         </div>
     )
 }

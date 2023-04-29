@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const Metrics = (props) =>{
 
-  const { id } = props
+  const { id,rol } = props
 
   const [solicitudpendiente, setSolicitudpendiente] = useState("");
   const [solicitudterminada, setSolicitudterminada] = useState("");
@@ -62,29 +62,49 @@ const Metrics = (props) =>{
 
   }, [])
   
-
-  return(
-    <div>
-      <div className='percentage'>
-        <h1>{Math.round(((solicitudcreadas && solicitudcreadas.length) / 30) * 100)}%</h1>
-        <p>De la meta mensual alcanzado</p>
-      </div>
-      <div className='metrics'>
-        <div className='created_sol'>
-          <b><p className='amnt'>{solicitudcreadas && solicitudcreadas.length}</p></b>
-          <p className='lbl'>Solicitudes creadas</p>
+  if(rol == 'Chofer'){
+    return(
+      <div>
+        <div className='percentage'>
+          <h1>{Math.round(((solicitudcreadas && solicitudcreadas.length) / 30) * 100)}%</h1>
+          <p>De la meta mensual alcanzado</p>
         </div>
-        <div className='pending_sol'>
-          <b><p className='amnt'>{solicitudpendiente && solicitudpendiente.length}</p></b>
-          <p className='lbl'>Solicitudes en proceso</p>
-        </div>
-        <div className='compl_sol'>
-          <b><p className='amnt'>{solicitudterminada && solicitudterminada.length}</p></b>
-          <p className='lbl'>Solicitudes completadas</p>
+        <div className='metrics'>
+          <div className='pending_sol'>
+            <b><p className='amnt'>{solicitudpendiente && solicitudpendiente.length}</p></b>
+            <p className='lbl'>Solicitudes pendientes</p>
+          </div>
+          <div className='compl_sol'>
+            <b><p className='amnt'>{solicitudterminada && solicitudterminada.length}</p></b>
+            <p className='lbl'>Solicitudes completadas</p>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }else{
+    return(
+      <div>
+        <div className='percentage'>
+          <h1>{Math.round(((solicitudcreadas && solicitudcreadas.length) / 30) * 100)}%</h1>
+          <p>De la meta mensual alcanzado</p>
+        </div>
+        <div className='metrics'>
+          <div className='created_sol'>
+            <b><p className='amnt'>{solicitudcreadas && solicitudcreadas.length}</p></b>
+            <p className='lbl'>Solicitudes creadas</p>
+          </div>
+          <div className='pending_sol'>
+            <b><p className='amnt'>{solicitudpendiente && solicitudpendiente.length}</p></b>
+            <p className='lbl'>Solicitudes en proceso</p>
+          </div>
+          <div className='compl_sol'>
+            <b><p className='amnt'>{solicitudterminada && solicitudterminada.length}</p></b>
+            <p className='lbl'>Solicitudes completadas</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Metrics

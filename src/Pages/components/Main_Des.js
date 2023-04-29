@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import {ReactComponent as Bars} from '../../images/bars.svg'
 import Nav from 'react-bootstrap/Nav';
 import Metrics from './metrics';
 import Recenthist from './recenthistory';
@@ -18,11 +17,12 @@ function Main_Des(props) {
   
     return (
         <div id='outer-container'>
-            <Menu pageWrapId={'page-wrap'} outerContainerId={'outer-container'}/>
+            <Menu pageWrapId={'page-wrap'} outerContainerId={'outer-container'} id={id} rol={'Desarrollador'}/>
             <div id="page-wrap">
                 <div className="container">
 
                     <div className='topContainer'>
+                    <br></br>
                         <center>
                             <h1 className='topText'>Hola, {Desarrollador && Desarrollador[0].nombre}</h1>
                         </center>
@@ -30,8 +30,7 @@ function Main_Des(props) {
                     <center>
                         <Metrics id = {id}/>
                         <Recenthist id = {id} rol = 'Des'/>
-                        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                        <Nav.Link href={`/visita`}><button className='botmain'>Registrar Visita</button></Nav.Link><br></br><br></br>
+                        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                         <Nav.Link href={`/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>
                     </center>
                 </div>

@@ -12,8 +12,21 @@ function Login() {
   const [logincheck, setLogincheck] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-
-
+  
+  var id = '';
+  var rol = '';
+  try{
+    var { id, rol }  = JSON.parse(localStorage.getItem('dataKey'));
+  }
+  catch{
+    var id = '';
+    var rol = '';
+  }
+  useEffect(() => {
+    if(id !== ''){
+      navigate('/main')
+    }
+  }, [])
 
   useEffect(() => {
     let rol = '';
@@ -38,7 +51,7 @@ function Login() {
 
   const ButtonPress = () => {
     setLoading(true);
-    const url = `http://10.22.172.125:2000/desarrollador/login`;
+    const url = `http://localhost:2000/desarrollador/login`;
     const data = {
       usuario: `${Usuario}`,
       contrasena: `${Contrasena}`,

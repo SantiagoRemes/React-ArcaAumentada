@@ -1,27 +1,65 @@
-import React, {useState} from "react";
+import React from "react";
 import "../../css/Menu.css";
 import "../../css/style.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; //npm install --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import {ReactComponent as Bars} from '../../images/bars.svg'
 import {push as Menu1} from 'react-burger-menu'
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
-const Menu = () =>{
+const Menu = (props) =>{
+
+    const {id, rol} = props;
+
+    const navigate = useNavigate()
+
+    const [usuario, setUsuario] = useState();
+
+    useEffect(() => {
+        if(rol === 'Desarrollador'){
+            fetch(`http://localhost:2000/desarrollador/${id}`)
+            .then( (res) => res.json())
+            .then((data)=> setUsuario(data));
+        }
+        else if(rol === 'Administrador'){
+            fetch(`http://localhost:2000/administrador/${id}`)
+            .then( (res) => res.json())
+            .then((data)=> setUsuario(data));
+        }
+        else if(rol === 'Chofer'){
+            fetch(`http://localhost:2000/chofer/${id}`)
+            .then( (res) => res.json())
+            .then((data)=> setUsuario(data));
+        }
+            
+    }, []);
+
+    const LogOut = () => {
+        localStorage.setItem('dataKey', JSON.stringify({ id: '', rol: '' }));
+        navigate('/')
+    };
+
     return (
         <div className='menu'>
             <Menu1 right mountOnEnter unmountOnExit>
-            <a className="menu-item" href="/">
-                Home
-            </a>
-            <a className="menu-item" href="/salads">
-                Salads
-            </a>
-            <a className="menu-item" href="/pizzas">
-                Pizzas
-            </a>
-            <a className="menu-item" href="/desserts">
-                Desserts
-            </a>
+                <h5 style={{ fontWeight: 'bold' }}>Detalles de la Cuenta</h5>
+                <p className="menu-item">
+                    Nombre: {usuario && usuario[0].nombre}
+                </p>
+                <p className="menu-item">
+                    Id: {id}
+                </p>
+                <p className="menu-item">
+                    Rol: {rol}
+                </p>
+                <p className="menu-item">
+                    Contacto: {usuario && usuario[0].contacto}
+                </p>
+                <p className="menu-item">
+                    Usuario: {usuario && usuario[0].usuario}
+                </p>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <h5 style={{ fontSize: '30px'}} onClick={(e) => {e.preventDefault(); LogOut();}}>
+                    Log Out
+                </h5>
             </Menu1>
         </div>
     )

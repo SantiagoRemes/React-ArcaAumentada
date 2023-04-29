@@ -9,7 +9,11 @@
   padding-bottom: 10px;
 }
 #outer-container{
-  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+.menu-item{
+  text-indent: 1em;
 }
 
 /* Position and sizing of burger button */

@@ -1,13 +1,26 @@
 import Main_Des from "./components/Main_Des";
-import Main_Admin from "./components/Main_Admin";
+import Admin_Dashboard from "./components/Admin_dashboard";
 import Main_Chofer from "./components/Main_Chofer";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Main() {
   const navigate = useNavigate();
 
-  const {id, rol} = JSON.parse(localStorage.getItem('dataKey'));
-  
+  var id = '';
+  var rol = '';
+  try{
+    var { id, rol }  = JSON.parse(localStorage.getItem('dataKey'));
+  }
+  catch{
+    var id = '';
+    var rol = '';
+  }
+  useEffect(() => {
+    if(id === ''){
+      navigate('/')
+    }
+  }, [])
 
   if(rol === "Des"){
     return(
@@ -17,7 +30,7 @@ function Main() {
 
   else if(rol === "Admin"){
     return(
-      <Main_Admin id={id}/>
+      <Admin_Dashboard id={id}/>
     )
   }
 
