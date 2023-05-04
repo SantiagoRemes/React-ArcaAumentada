@@ -47,7 +47,7 @@ function Solicitud() {
   const [RefriporTienda, setRefriporTienda] = useState('')
 
   useEffect(() => {
-    fetch(`http://localhost:2000/desarrollador/${id}`)
+    fetch(`http://192.168.1.131:2000/desarrollador/${id}`)
     .then( (res) => res.json())
     .then((data)=> setDesarrollador(data));
   }, []);
@@ -57,7 +57,7 @@ function Solicitud() {
     if(nombre === ''){
       nombre = 'a'
     }
-    fetch(`http://localhost:2000/CEDI/${nombre}`)
+    fetch(`http://192.168.1.131:2000/CEDI/${nombre}`)
     .then( (res) => res.json())
     .then((data)=> setCEDI(data));
   }, [ceditext])
@@ -89,7 +89,7 @@ function Solicitud() {
     if(nombre === ''){
       nombre = 'a'
     }
-    fetch(`http://localhost:2000/dueno/${nombre}`)
+    fetch(`http://192.168.1.131:2000/dueno/${nombre}`)
     .then( (res) => res.json())
     .then((data)=> setCliente(data));
     try{
@@ -120,7 +120,7 @@ function Solicitud() {
     if(nombre === ''){
       nombre = 'a'
     }
-    fetch(`http://localhost:2000/tienda/${nombre}`)
+    fetch(`http://192.168.1.131:2000/tienda/${nombre}`)
     .then( (res) => res.json())
     .then((data)=> setNegocio(data));
     try{
@@ -146,11 +146,11 @@ function Solicitud() {
     catch(err){
 
     }
-    fetch(`http://localhost:2000/refrisolicitado/refriportienda/${numeroclientenegocio}`)
+    fetch(`http://192.168.1.131:2000/refrisolicitado/refriportienda/${numeroclientenegocio}`)
     .then( (res) => res.json())
     .then((data)=> setRefriporTienda(data));
 
-    fetch(`http://localhost:2000/refrisolicitado/sum/${numeroclientenegocio}`)
+    fetch(`http://192.168.1.131:2000/refrisolicitado/sum/${numeroclientenegocio}`)
     .then( (res) => res.json())
     .then((data)=> setNegociopuertas(data));
     try{
@@ -165,6 +165,20 @@ function Solicitud() {
       
     }
   };
+
+  const [classtable, setClasstable] = useState();
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const isIPhone = /iPhone/i.test(userAgent);
+    const isAndroid = /Android/i.test(userAgent);
+    if(isIPhone || isAndroid){
+      setClasstable('mobiletable')
+    }
+    else{
+      setClasstable('table')
+    }
+  }, [])
  
   return (
     <div>
@@ -176,19 +190,24 @@ function Solicitud() {
       <h2 class='header2'>Datos de la solicitud</h2>
       <div>
           <form>
-            <label class='slabel'>Fecha</label>
-            <input type='text' placeholder='[Fecha]' id='Fecha' value={new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()}></input><br></br>
-            <br></br><br></br>
-            <label class='slabel'>CEDI</label>
-            <input type='text' placeholder='[CEDI]' value={ceditext} onChange={handleCediChange}></input><br/>
-            <br></br><br></br>
-            <label class='slabel'>País</label>
-            <input type='text' placeholder='[País]' value={paiscedi} readOnly ></input><br/>
-            <br></br><br></br><br></br>
-            <label class='slabel'>Región</label>
-            <input type='text' placeholder='[Región]' value={regioncedi} readOnly ></input><br/>
-            <br></br><br></br>
-            
+            <div className='formcont'>
+              <div className='column'>
+                <label class='slabel'>Fecha</label>
+                <input type='text' placeholder='[Fecha]' id='Fecha' value={new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()}></input><br></br>
+                <br></br><br></br>
+                <label class='slabel'>CEDI</label>
+                <input type='text' placeholder='[CEDI]' value={ceditext} onChange={handleCediChange}></input><br/>
+                <br></br><br></br>
+              </div>
+              <div className='column'>
+                <label class='slabel'>País</label>
+                <input type='text' placeholder='[País]' value={paiscedi} readOnly ></input><br/>
+                <br></br><br></br><br></br>
+                <label class='slabel'>Región</label>
+                <input type='text' placeholder='[Región]' value={regioncedi} readOnly ></input><br/>
+                <br></br><br></br>
+              </div>  
+            </div>
             {Desarrollador && Desarrollador.map((item) => 
               <div>
                 <h2 class='header2'>Datos del Desarrollador</h2>
@@ -262,7 +281,7 @@ function Solicitud() {
             <br></br><br></br>
 
             <label class='header2'>Listado de EDF actual</label>
-            <table class='table'>
+            <table class={classtable}>
                     <thead class='tableheader'> 
                         <tr>
                             <th>Cantidad</th>
@@ -281,7 +300,7 @@ function Solicitud() {
                 </table>
             <br></br><br></br>
             <label class='header2'>Listado de EDF a solicitar</label>
-            <table class='table'>
+            <table class={classtable}>
                     <thead class='tableheader'>
                         <tr>
                             <th>Cantidad</th>

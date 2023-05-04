@@ -8,19 +8,27 @@ const Recenthist = (props) =>{
     const { id, rol,type } = props;
     
     const [Solicitud, setSolicitud] = useState([]);
-    const [SolicitudAdmin, setSolicitudAdmin] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:2000/solicitud/tiendades/${id}`)
+        if(rol === 'Des'){
+            fetch(`http://localhost:2000/solicitud/tiendades/${id}`)
         .then( (res) => res.json())
         .then((data)=> setSolicitud(data));  
-        
-        fetch(`http://localhost:2000/solicitud/tiendaadmin`)
+        }
+        else if(rol === 'Admin'){
+            fetch(`http://localhost:2000/solicitud/tiendaadmin`)
             .then( (res) => res.json())
-            .then((data)=> setSolicitudAdmin(data));
+            .then((data)=> setSolicitud(data));
+        }
+        else if(rol === 'Chofer'){
+            fetch(`http://localhost:2000/solicitud/chofer/${id}`)
+            .then( (res) => res.json())
+            .then((data)=> setSolicitud(data));
+        }
+        
+        
+        
     }, []);
-
-    if(rol === 'Des'){
 
         return(
             <div className='recent_sol'>
@@ -40,49 +48,6 @@ const Recenthist = (props) =>{
                 </Nav.Link>
             </div>
         )
-    }
-    else if(rol === 'Admin'){
-
-        if(type == 'desktop'){
-            return(
-                <div className='recent_sol_desk'>
-                    <div className='sol_toolbar'>
-                    <p className='lbl'>Solicitudes recientes</p>
-                    <Nav.Link href={`/historialadmin`}><p className='atag'>Ver más</p></Nav.Link>
-                    </div>
-                    {SolicitudAdmin && SolicitudAdmin.slice(0, 3).map((item) => (
-                        <Sol_prev item={item}/>
-                    ))}
-                </div>
-            )
-        }else{
-            return(
-                <div className='recent_sol'>
-                        <div className='sol_toolbar'>
-                        <p className='lbl'>Solicitudes recientes</p>
-                        <Nav.Link href={`/historialadmin`}><p className='atag'>Ver más</p></Nav.Link>
-                        </div>
-                        {SolicitudAdmin && SolicitudAdmin.slice(0, 3).map((item) => (
-                            <Sol_prev item={item}/>
-                        ))}
-                </div>
-            )
-        }
-    }
-    else if(rol === 'Chofer'){
-        
-        return(
-            <div className='recent_sol'>
-                    <div className='sol_toolbar'>
-                    <p className='lbl'>Solicitudes recientes</p>
-                    <Nav.Link href={`/historialadmin`}><p className='atag'>Ver más</p></Nav.Link>
-                    </div>
-                    {SolicitudAdmin && SolicitudAdmin.slice(0, 3).map((item) => (
-                        <Sol_prev item={item}/>
-                    ))}
-            </div>
-        )
-    }
 }
 
 export default Recenthist

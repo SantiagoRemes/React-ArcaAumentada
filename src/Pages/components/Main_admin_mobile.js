@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import Navbar from 'react-bootstrap/Navbar';
-import AdminMetrics from './admin_metrics';
 import Recenthist from './recenthistory';
 import TopContainer from './topcontainer';
 import Menu from './Menu.js'
@@ -13,7 +12,7 @@ function Dashbrd_mobile(props) {
   const [Desarrollador, setDesarrollador] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:2000/administrador/${id}`)
+    fetch(`http://192.168.1.131:2000/administrador/${id}`)
     .then( (res) => res.json())
     .then((data)=> setDesarrollador(data));
   }, []);
@@ -33,7 +32,7 @@ function Dashbrd_mobile(props) {
                 </center>
             </div> 
             <center>
-                <AdminMetrics id = {id} type='Mobile'/>
+                <Metrics id = {id} type='Mobile' rol='Admin'/>
                 <Recenthist id = {id} rol = 'Admin'/>
             </center>
         </div>

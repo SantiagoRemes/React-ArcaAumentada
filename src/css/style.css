@@ -2,6 +2,27 @@ body {
     font: 'Inter';
 }
 
+[type="checkbox"]{
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+[type="checkbox"]:checked{
+  background-color: #C72B40;
+}
+
+label{
+  font-size: 20px;
+  color: #C72B40;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
 .head1 {
     color: #C72B40;
     text-align: center;
@@ -20,19 +41,39 @@ body {
 
 input {
     height: 30px;
+    border-radius: 25px;
+    border: 1px solid black;
 }
-
+select{
+  height: 30px;
+  border-radius: 25px;
+  border: 1px solid black;
+}
 .bot{
-    height: 25px;
+    height: fit-content;
     border: 0;
     color: rgb(152, 53, 53);
     background-color: #C72B40;
     font: 'Inter';
     color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.widebot{
+  height: fit-content;
+  border: 0;
+  color: rgb(152, 53, 53);
+  background-color: #C72B40;
+  font: 'Inter';
+  color: white;
+  padding: 5px;
+  border-radius: 25px;
+  width: 200px;
 }
 
 .botspace{
-    height: 25px;
+    height: fit-content;
     border: 0;
     color: rgb(152, 53, 53);
     background-color: #C72B40;
@@ -41,6 +82,9 @@ input {
     margin-right: 0%;
     margin-left: 0%;
     display: inline;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 20px;
 }
 
 .logo {
@@ -95,6 +139,7 @@ input {
     padding: none;
     display: flex;
     justify-content: space-between;
+    border-radius: 25px;
   }
   .created_sol{
     float: left;
@@ -116,6 +161,12 @@ input {
     width: 30%;
     float: right;
   }
+  .admin_sol{
+    width: 30%;
+    float: center;
+    margin:auto;
+
+  }
   .recent_sol{
     width: 90%;
     height: fit-content;
@@ -127,6 +178,7 @@ input {
     border-right: solid 1.5px rgb(182, 182, 182);
     border-bottom: solid 1.5px rgb(182, 182, 182);
     padding: none;
+    border-radius: 10px;
   }
   .atag{
     margin-top: 0;
@@ -171,6 +223,7 @@ input {
     float: left;
     text-align: left;
     display: inline;
+    color: #FFFFFF;
 }
 
 .imageqr{
@@ -206,14 +259,11 @@ div{
 }
 
 .slabel{
-    font-size: 11px;
-    color: black;
+    font-size: 10px;
     font: 'Inter';
-    position:relative;
-    left: -52px;
     display: block;
-    text-align: left;
-    margin-left: 35%;
+    text-align: center;
+    color: #C72B40;
 }
 
 .contlogin{
@@ -241,12 +291,14 @@ div{
 
 .botmain{
     transform: skewY(10deg);
-    height: 25px;
+    height: fit-content;
     border: 0;
     color: rgb(152, 53, 53);
     background-color: #C72B40;
     font: 'Inter';
     color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .twop{
@@ -275,6 +327,7 @@ div{
   float: right;
   text-align: right;
   display: inline;
+  color:#FFFFFF
 }
 
 .slabel2{
@@ -295,6 +348,12 @@ div{
 table, th, td{
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+.mobiletable{
+  display:block;
+  overflow-x:auto;
+  white-space: nowrap;
 }
 
 .desktopbar{
@@ -328,6 +387,7 @@ table, th, td{
   padding: none;
   display: flex;
   justify-content: space-between;
+  border-radius: 25px;
 }
 
 .recent_sol_desk{
@@ -340,4 +400,30 @@ table, th, td{
   border-right: solid 1.5px rgb(182, 182, 182);
   border-bottom: solid 1.5px rgb(182, 182, 182);
   padding: none;
+  border-radius: 10px;
+}
+.column{
+  width: 50%;
+  height: fit-content;
+  display: inline-block;
+  padding: 10px;
+  display: flex;
+}
+.form-group{
+  display: flex;
+  justify-content: space-between;
+}
+.form-group div{
+  width: 45%;
+  height: fit-content;
+}
+.form-group div h2{
+  font-size: 14pt;
+}
+.form-group div input{
+  width: 150px;
+}
+.form-group div label{
+  font-size: 10pt;
+  color: #C72B40;
 }

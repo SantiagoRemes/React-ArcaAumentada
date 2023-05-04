@@ -15,17 +15,17 @@ const Menu = (props) =>{
 
     useEffect(() => {
         if(rol === 'Desarrollador'){
-            fetch(`http://localhost:2000/desarrollador/${id}`)
+            fetch(`http://192.168.1.131:2000/desarrollador/${id}`)
             .then( (res) => res.json())
             .then((data)=> setUsuario(data));
         }
         else if(rol === 'Administrador'){
-            fetch(`http://localhost:2000/administrador/${id}`)
+            fetch(`http://192.168.1.131:2000/administrador/${id}`)
             .then( (res) => res.json())
             .then((data)=> setUsuario(data));
         }
         else if(rol === 'Chofer'){
-            fetch(`http://localhost:2000/chofer/${id}`)
+            fetch(`http://192.168.1.131:2000/chofer/${id}`)
             .then( (res) => res.json())
             .then((data)=> setUsuario(data));
         }

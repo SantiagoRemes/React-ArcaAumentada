@@ -3,7 +3,7 @@ import '../css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 import BackArrow from '../images/backarrow.png';
-import Search from '../images/search.png';
+import Search from '../images/search.svg';
 import { useState, useEffect } from "react";
 import Sol_card from './components/sol_card';
 import { useNavigate } from 'react-router-dom';
@@ -30,15 +30,19 @@ function Historial() {
 
     useEffect(() => {
         if(rol === 'Des'){
-            fetch(`http://localhost:2000/solicitud/tiendades/${id}`)
+            fetch(`http://192.168.1.131:2000/solicitud/tiendades/${id}`)
             .then( (res) => res.json())
             .then((data)=> setSolicitudes(data));
         }
         else if(rol === 'Admin'){
-
+            fetch(`http://192.168.1.131:2000/solicitud/tiendaadmin`)
+            .then( (res) => res.json())
+            .then((data)=> setSolicitudes(data));
         }
         else if(rol === 'Chofer'){
-
+            fetch(`http://localhost:2000/solicitud/chofer/${id}`)
+            .then( (res) => res.json())
+            .then((data)=> setSolicitudes(data));
         }
         }, []);
 

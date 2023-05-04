@@ -51,7 +51,7 @@ function Login() {
 
   const ButtonPress = () => {
     setLoading(true);
-    const url = `http://localhost:2000/desarrollador/login`;
+    const url = `http://192.168.1.131:2000/desarrollador/login`;
     const data = {
       usuario: `${Usuario}`,
       contrasena: `${Contrasena}`,
@@ -86,10 +86,12 @@ function Login() {
           <h1 class='head1'>Inicio de Sesión</h1>
           <br></br>
           <div>
+            <label>Usuario</label><br/>
             <input type="text" placeholder="Usuario" controlId="usuario" value={Usuario} onChange={(e) => setUsuario(e.target.value)}/><br></br><br></br>
+            <label>Contraseña</label><br/>
             <input type="password" placeholder="Contraseña" controlId="contrasena" value={Contrasena} onChange={(e) => setContrasena(e.target.value)}/><br></br><br></br>
             {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
-            <button class="bot" type="submit" onClick={(e) => {e.preventDefault(); ButtonPress();}}>Ingresar</button>
+            <button class="widebot" type="submit" onClick={(e) => {e.preventDefault(); ButtonPress();}}>Ingresar</button>
           </div>
         </div>
       )}

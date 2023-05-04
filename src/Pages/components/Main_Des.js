@@ -10,7 +10,7 @@ function Main_Des(props) {
     const [Desarrollador, setDesarrollador] = useState();
 
     useEffect(() => {
-      fetch(`http://localhost:2000/desarrollador/${id}`)
+      fetch(`http://192.168.1.131:2000/desarrollador/${id}`)
       .then( (res) => res.json())
       .then((data)=> setDesarrollador(data));
     }, []);
