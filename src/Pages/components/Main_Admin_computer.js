@@ -1,17 +1,17 @@
 import {ReactComponentElement, useState, useEffect} from "react";
 import Menu from './Menu'
-import AdminMetrics from './admin_metrics'
 import Recenthist from './recenthistory'
+import Metrics from './metrics'
 
 const Dashbrd_computer = (props) =>{
     const { id }  = props;
 
-    const [Desarrollador, setDesarrollador] = useState();
+    const [Administrador, setAdministrador] = useState();
 
     useEffect(() => {
-        fetch(`http://localhost:2000/administrador/${id}`)
+        fetch(`http://192.168.1.131:2000/administrador/${id}`)
         .then( (res) => res.json())
-        .then((data)=> setDesarrollador(data));
+        .then((data)=> setAdministrador(data));
     }, []);
     return(
         <div id='outer-container'>
@@ -19,7 +19,7 @@ const Dashbrd_computer = (props) =>{
             <div id='page-wrap'>
                 <div className='desktopbar'>
                     <div className='topText'>
-                        <h1>Hola, {Desarrollador && Desarrollador[0].nombre}</h1>
+                        <h1>Hola, {Administrador && Administrador[0].nombre}</h1>
                     </div>
                 </div>
                 <title>Admin_Dashboard</title>
@@ -27,11 +27,11 @@ const Dashbrd_computer = (props) =>{
                 <div className='topContainer'>
                 <br></br>
                     <center>
-                        <h1 className='topText'>Hola, {Desarrollador && Desarrollador[0].nombre}</h1>
+                        <h1 className='topText'>Hola, {Administrador && Administrador[0].nombre}</h1>
                     </center>
                 </div> 
                 <center>
-                    <AdminMetrics id = {id} type='desktop'/>
+                    <Metrics id = {id} type='desktop' rol='Admin'/>
                     <Recenthist id = {id} rol = 'Admin' type='desktop'/>
                 </center>
             </div>
