@@ -1,12 +1,14 @@
-import {ReactComponentElement, useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import Menu from './Menu'
 import Recenthist from './recenthistory'
 import Metrics from './metrics'
+import Top3Des from "./Top_Des";
 
 const Dashbrd_computer = (props) =>{
     const { id }  = props;
 
     const [Administrador, setAdministrador] = useState();
+    const [top3desarrolladores, setTop3desarrolladores] = useState();
 
     useEffect(() => {
         fetch(`http://192.168.1.131:2000/administrador/${id}`)
@@ -31,8 +33,9 @@ const Dashbrd_computer = (props) =>{
                     </center>
                 </div> 
                 <center>
-                    <Metrics id = {id} type='desktop' rol='Admin'/>
-                    <Recenthist id = {id} rol = 'Admin' type='desktop'/>
+                    <Metrics id = {id} type='Desktop' rol='Admin'/>
+                    <Recenthist id = {id} rol = 'Admin' type='Desktop'/>
+                    <Top3Des type='Desktop'/>
                 </center>
             </div>
         </div>

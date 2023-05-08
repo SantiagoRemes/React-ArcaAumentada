@@ -43,6 +43,7 @@ input {
     height: 30px;
     border-radius: 25px;
     border: 1px solid black;
+    text-align: center;
 }
 select{
   height: 30px;
@@ -190,6 +191,7 @@ select{
     border-top: solid black 1px;
     justify-content: space-between;
     display: flex;
+    height: 45px;
   
   }
   .sol_toolbar{
@@ -223,7 +225,10 @@ select{
     float: left;
     text-align: left;
     display: inline;
+    margin-left: 5px;
     color: #FFFFFF;
+    width: 30px;
+    height: 45px;
 }
 
 .imageqr{
@@ -422,8 +427,90 @@ table, th, td{
 }
 .form-group div input{
   width: 150px;
+  text-align: center;
+}::placeholder{
+  text-align: center;
 }
 .form-group div label{
   font-size: 10pt;
   color: #C72B40;
+}
+.inner_from_group{
+  width: 45%;
+  height: fit-content;
+  display: inline-block;
+}
+.inner_from_group h2{
+  font-size: 14pt;
+}
+.inner_from_group input{
+  width: 150px;
+  text-align: center;
+}
+.inner_from_group label{
+  font-size: 10pt;
+  color: #C72B40;
+}
+[type = 'file']{
+  width: 350px;
+  height: fit-content;
+  background-color: #C72B40;
+  border: none;
+  color: #FFFFFF;
+  
+}
+.pos1{
+  color: #C72B40;
+  font-size: 20pt;
+  font-style: bold;
+}
+.name{
+  font-size: 16pt;
+}
+.pos2{
+  color: #C72B40;
+  font-size: 18pt;
+  font-style: bold;
+}
+.name2{
+  font-size: 14pt;
+}
+.pos3{
+  color: #C72B40;
+  font-size: 16pt;
+  font-style: bold;
+}
+.name3{
+  font-size: 12pt;
+}
+.lbl1{
+  color: #C72B40;
+  font-size: 20pt;
+}
+
+.top3cont{
+  transform: skewY(10deg);
+  width: 90%;
+  height: fit-content;
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 145%;
+  left: 5%;
+  border-right: solid 1.5px rgb(182, 182, 182);
+  border-bottom: solid 1.5px rgb(182, 182, 182);
+  padding: none;
+  border-radius: 10px;
+}
+
+.top3cont_desk{
+  width: 90%;
+  height: fit-content;
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 70%;
+  left: 5%;
+  border-right: solid 1.5px rgb(182, 182, 182);
+  border-bottom: solid 1.5px rgb(182, 182, 182);
+  padding: none;
+  border-radius: 10px;
 }

@@ -1,9 +1,10 @@
-import React, { useDebugValue } from 'react'
+import React from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import BackArrow from '../images/backarrow.png';
 import '../css/style.css'
+import Spinner from 'react-bootstrap/Spinner';
 
 function Checklist(props) {
 
@@ -24,6 +25,8 @@ function Checklist(props) {
   }, [])
 
   const [disable, setDisable] = useState(false)
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if(rol === 'Admin' || rol === 'Chofer'){
       setDisable(true)
@@ -34,20 +37,21 @@ function Checklist(props) {
 
   const { idChecklist } = useParams();
   const location = useLocation()
-  console.log(location)
   const {idSolicitud} = location.state;
   
   const [checklist, setChecklist] = useState();
 
   const [puerta, setPuerta] = useState(false);
-  const [puertanobool, setPuertanobool] = useState(false);
+  const [puertanobool, setPuertanobool] = useState();
   const [posicion, setPosicion] = useState();
   const [movimientos, setMovimientos] = useState();
   const [personas, setPersonas] = useState();
   const [horario, setHorario] = useState();
 
   useEffect(() =>{
+    console.log(checklist)
     setPuerta(checklist && checklist[0].puerta === 0 ? false : true)
+    setPuertanobool(checklist && checklist[0].puerta)
     setPosicion(checklist && checklist[0].posicion)
     setMovimientos(checklist && checklist[0].movimientos)
     setPersonas(checklist && checklist[0].personas)
@@ -63,11 +67,12 @@ function Checklist(props) {
   const handleonChangePuerta = () =>{
     if(puerta === false){
       setPuerta(true)
+      setPuertanobool(1)
     }
     else{
       setPuerta(false)
+      setPuertanobool(0)
     }
-    
   }
 
   const handleonChangePosicion = (e) =>{
@@ -87,12 +92,7 @@ function Checklist(props) {
   }
 
   const handleonClick = () =>{
-    if(puerta === true){
-      setPuertanobool(1)
-    }
-    else{
-      setPuertanobool(0)
-    }
+    setLoading(true)
     const url = `http://192.168.1.131:2000/checklist/update/${idChecklist}`;
     const data = {
       puerta: puertanobool,
@@ -112,40 +112,51 @@ function Checklist(props) {
         .then((res) => res.json())
         .then((respPost) => {
           console.log(respPost);
-          alert(`Alta de Tema exitosa`);
+          alert(`Checklist actualizada exitosamente`);
+          setLoading(false)
         })
         .catch((err) => {
+          alert(`Checklist no actualizada`);
           alert(err)
+          setLoading(false)
         });
   }
 
   return (
     <div>
-       <div class='redbg'>
-        <Nav.Link href={`/solcheck/${idSolicitud}`}><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
-        <h1 class='header'>Datos de la Checklist</h1>
-      </div>
-      <div>
-        <label>Pasa por la puerta <input type='checkbox' onChange={handleonChangePuerta} checked={puerta} disabled={disable}/></label>
-        
-        <br /><br />
-        <label for='puerta'>Posición: </label><br/>
-        <select value={posicion} onChange={handleonChangePosicion} disabled={disable}>
-          <option value='Primera'>Primera</option>
-          <option value='Favorable'>Favorable</option>
-        </select>
-        <br /><br />
-        <label>Movimientos: </label><br/>
-        <input type='text' value={movimientos} placeholder='[Movimientos necesarios]' onChange={handleonChangeMovimientos} disabled={disable}/>
-        <br /><br />
-        <label>Personas: </label><br/>
-        <input type='number' value={personas} placeholder='[2]' onChange={handleonChangePersonas} disabled={disable}/>
-        <br /><br />
-        <label>Horario: </label><br/>
-        <input type='datetime' value={horario} placeholder='[XXXX-XX-XX XX:XX]' onChange={handleonChangeHorario} disabled={disable}/>
-        <br /><br />
-        <button class='bot' onClick={handleonClick} hidden={disable}>Actualizar Checklist</button>
-      </div>
+      {loading ? (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>  
+      ) : (
+        <div>
+              <div class='redbg'>
+            <Nav.Link href={`/solcheck/${idSolicitud}`}><img class='imageflex' src={BackArrow} alt='backarrow' width='50px' height='45px'/></Nav.Link>
+            <h1 class='header'>Datos de la Checklist</h1>
+          </div>
+          <div>
+            <label>Pasa por la puerta <input type='checkbox' onChange={handleonChangePuerta} checked={puerta} disabled={disable}/></label>
+            
+            <br /><br />
+            <label for='puerta'>Posición: </label><br/>
+            <select value={posicion} onChange={handleonChangePosicion} disabled={disable}>
+              <option value='Primera'>Primera</option>
+              <option value='Favorable'>Favorable</option>
+            </select>
+            <br /><br />
+            <label>Movimientos: </label><br/>
+            <input type='text' value={movimientos} placeholder='[Movimientos necesarios]' onChange={handleonChangeMovimientos} disabled={disable}/>
+            <br /><br />
+            <label>Personas: </label><br/>
+            <input type='number' value={personas} placeholder='[2]' onChange={handleonChangePersonas} disabled={disable}/>
+            <br /><br />
+            <label>Horario: </label><br/>
+            <input type='datetime' value={horario} placeholder='[XXXX-XX-XX XX:XX]' onChange={handleonChangeHorario} disabled={disable}/>
+            <br /><br />
+            <button class='bot' onClick={handleonClick} hidden={disable}>Actualizar Checklist</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

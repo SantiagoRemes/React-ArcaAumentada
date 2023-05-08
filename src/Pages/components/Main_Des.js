@@ -28,10 +28,10 @@ function Main_Des(props) {
                         </center>
                     </div> 
                     <center>
-                        <Metrics id = {id}/>
-                        <Recenthist id = {id} rol = 'Des'/>
+                        <Metrics id = {id} rol = 'Des'/>
+                        <Recenthist id = {id} rol = 'Des' type='Mobile'/>
                         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                        <Nav.Link href={`/unity`}><button className='botmain'>Nueva Orden</button></Nav.Link>
+                        <Nav.Link href={`/solicitud`}><button className='botmain'>Nueva Orden</button></Nav.Link>
                     </center>
                 </div>
             </div>

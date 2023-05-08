@@ -25,7 +25,7 @@ function Main_Des(props) {
                 </div> 
                 <center>
                     <Metrics id={id} rol={'Chofer'}/>
-                    <Recenthist  id= {id} rol= 'Chofer'/>
+                    <Recenthist  id= {id} rol= 'Chofer' type='Mobile'/>
                 </center>
             </div>
         </div>

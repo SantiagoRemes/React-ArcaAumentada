@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const Metrics = (props) =>{
 
-  const { id,rol } = props
+  const { id,rol,type } = props
 
   const [solicitudpendiente, setSolicitudpendiente] = useState("");
   const [solicitudterminada, setSolicitudterminada] = useState("");
@@ -81,7 +81,7 @@ const Metrics = (props) =>{
       );
     }
     else if(rol === 'Chofer'){
-      fetch(`http://localhost:2000/solicitud/chofer/${id}`)
+      fetch(`http://192.168.1.131:2000/solicitud/chofer/${id}`)
             .then( (res) => res.json())
             .then((data)=> setSolicitudeschoferpendientes(data));
 
@@ -127,14 +127,26 @@ const Metrics = (props) =>{
     )
   }
   else if(rol === 'Admin'){
-    return(
-      <div className='metrics'>
-          <div className='admin_sol'>
-          <b><p className='amnt'>{solicitudesadmintaprobadas && solicitudesadmintaprobadas.length}</p></b>
-          <p className='lbl'>Ordenes Aprobadas</p>
-          </div>
-      </div>
-  )
+    if(type == 'Desktop'){
+      return(
+        <div className='metrics_desk'>
+            <div className='admin_sol'>
+            <b><p className='amnt'>{solicitudesadmintaprobadas && solicitudesadmintaprobadas.length}</p></b>
+            <p className='lbl'>Ordenes Aprobadas</p>
+            </div>
+        </div>
+      )
+    }
+    else if(type === 'Mobile'){
+      return(
+        <div className='metrics'>
+            <div className='admin_sol'>
+            <b><p className='amnt'>{solicitudesadmintaprobadas && solicitudesadmintaprobadas.length}</p></b>
+            <p className='lbl'>Ordenes Aprobadas</p>
+            </div>
+        </div>
+      )
+    }
   }
   else if(rol === 'Des'){
     return(

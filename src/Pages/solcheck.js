@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav';
 import { useState, useEffect } from "react";
 import Table from './components/tabla';
 import { useNavigate } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
+import { Link } from 'react-router-dom';
 
 function Solcheck() {
 
@@ -26,37 +28,14 @@ function Solcheck() {
     }
   }, [])
 
+  let {idSolicitud} = useParams();
+
   const [classtable, setClasstable] = useState();
   const [disable, setDisable] = useState(false);
 
   const [isdes, setIsdes] = useState(false);
   const [isadmin, setIsadmin] = useState(false);
   const [ischofer, setIschofer] = useState(false);
-
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
-    const isIPhone = /iPhone/i.test(userAgent);
-    const isAndroid = /Android/i.test(userAgent);
-    if(isIPhone || isAndroid){
-      setClasstable('mobiletable')
-    }
-    else{
-      setClasstable('table')
-    }
-    if(rol === 'Des'){
-      setIsdes(true);
-    }
-    else if(rol === 'Admin'){
-      setDisable(true)
-      setIsadmin(true);
-    }
-    else if(rol === 'Chofer'){
-      setIschofer(true);
-      setDisable(true)
-    }
-  }, [])
-
-  let {idSolicitud} = useParams();
 
   const [Solicituddatos, setSolicituddatos] = useState()
 
@@ -85,7 +64,6 @@ function Solcheck() {
 
   const [numeroclientenegocio, setNegocionumerocliente] = useState();
   const [tamanonegocio, setNegociotamano] = useState();
-  //const [ventasactualesnegocio, setNegocioventasactuales] = useState();
   const [puertasact, setNegociopuertasact] = useState();
   const [puertassolicitarnegocio, setNegociopuertassolicitar] = useState();
 
@@ -98,37 +76,90 @@ function Solcheck() {
 
   const [isnotpendiente, setIsnotpendiente]= useState(false);
 
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState();
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const isIPhone = /iPhone/i.test(userAgent);
+    const isAndroid = /Android/i.test(userAgent);
+    if(isIPhone || isAndroid){
+      setClasstable('mobiletable')
+    }
+    else{
+      setClasstable('table')
+    }
+    if(rol === 'Des'){
+      setIsdes(true);
+    }
+    else if(rol === 'Admin'){
+      setDisable(true)
+      setIsadmin(true);
+    }
+    else if(rol === 'Chofer'){
+      setIschofer(true);
+      setDisable(true)
+    }
+  }, [])
+  
+  useEffect(() => {
+    fetch(`http://192.168.1.131:2000/solicitud/solicitudall/${idSolicitud}`)
+    .then( (res) => res.json())
+    .then((data)=> setSolicituddatos(data));
+
+    fetch(`http://192.168.1.131:2000/refrisolicitado/refrisolicitud/${idSolicitud}`)
+    .then( (res) => res.json())
+    .then((data)=> setRefriSolicitud(data));
+
+    fetch(`http://192.168.1.131:2000/refrisolicitado/refrisolicitudpuertas/${idSolicitud}`)
+    .then( (res) => res.json())
+    .then((data)=> setRefriSolicitudpuertas(data));
+  }, []);
 
   const CallBack= (refresh) => {
     setRefresh2(refresh)
   }
-  
-  useEffect(() =>{
-    const url = `http://192.168.1.131:2000/refrisolicitado/refriportiendamov`;
-    const data = {
-      idTienda: `${numeroclientenegocio}`,
-      idSolicitud: `${idSolicitud}`,
-      movimiento: `Cambiar`
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    fetch(url, options)
-    .then((res) => res.json())
-    .then((data) => {setRefriporTiendaMov(data); setRefresh2(false)})
-      .catch((err) => {
-      }
-    );
-  }, [refresh2])
-  
+
   useEffect(() => {
-    setNegociopuertasact(puertasnegocio && puertasnegocio[0].puertastot);
-  }, [puertasnegocio])
+    if(Solicituddatos && Solicituddatos[0].estatus === 'Aprobada' || Solicituddatos && Solicituddatos[0].estatus === 'Negada'){
+      setIsnotpendiente(true);
+    }
+    if(Solicituddatos && Solicituddatos[0].idAdministrador !== 'null'){
+      fetch(`http://192.168.1.131:2000/administrador/${Solicituddatos[0].idAdministrador}`)
+        .then( (res) => res.json())
+        .then((data)=> setAdmin(data));
+    }
+    setFechasolicitud(Solicituddatos && Solicituddatos[0].fecha_solicitud.substring(0, 10))
+    setCeditext(Solicituddatos && Solicituddatos[0].CEDINombre[0]);
+    setCediregion(Solicituddatos && Solicituddatos[0].region);
+    setCedipais(Solicituddatos && Solicituddatos[0].pais);
+
+    setNumdesarrollador(Solicituddatos && Solicituddatos[0].idDesarrollador[0])
+    setNombredesarrollador(Solicituddatos && Solicituddatos[0].nombre[1])
+    setDescontacto(Solicituddatos && Solicituddatos[0].contacto)
+
+    setClientenombre(Solicituddatos && Solicituddatos[0].nombre_Completo);
+    setClientedomicilio(Solicituddatos && Solicituddatos[0].calle_no[1]);
+    setClientecolonia(Solicituddatos && Solicituddatos[0].colonia[1]);
+    setClienteciudad(Solicituddatos && Solicituddatos[0].ciudad[1]);
+    setClienteestado(Solicituddatos && Solicituddatos[0].estado[1]);
+    setClientecelular(Solicituddatos && Solicituddatos[0].celular[1]);
+
+    setNegocionombre(Solicituddatos && Solicituddatos[0].nombre[0]);
+    setNegociodireccion(Solicituddatos && Solicituddatos[0].calle_no[0]);
+    setNegociocolonia(Solicituddatos && Solicituddatos[0].colonia[0]);
+    setNegociociudad(Solicituddatos && Solicituddatos[0].ciudad[0]);
+    setNegocioestado(Solicituddatos && Solicituddatos[0].estado[0]);
+    setNegociocelular(Solicituddatos && Solicituddatos[0].celular[0]);
+
+    setNegocionumerocliente(Solicituddatos && Solicituddatos[0].idTienda[0])
+    setNegociotamano(Solicituddatos && Solicituddatos[0].tamaño)
+    if(solicitudrefrispuertas && solicitudrefrispuertas.length !== 0){
+      setNegociopuertassolicitar(solicitudrefrispuertas && solicitudrefrispuertas[0].puertas)
+    }
+    else{
+      setNegociopuertassolicitar(0)
+    }
+  }, [Solicituddatos])
 
   useEffect(() => {
     const url = `http://192.168.1.131:2000/refrisolicitado/refriportienda`;
@@ -147,8 +178,7 @@ function Solcheck() {
     .then((res) => res.json())
     .then((data) => {setRefriporTienda(data)})
       .catch((err) => {
-      }
-    );
+      }, []);
 
     const url2 = `http://192.168.1.131:2000/refrisolicitado/refriportiendamov`;
     const data2 = {
@@ -177,62 +207,11 @@ function Solcheck() {
   }, [numeroclientenegocio])
 
   useEffect(() => {
-    if(Solicituddatos && Solicituddatos[0].estatus === 'Aprobada' || Solicituddatos && Solicituddatos[0].estatus === 'Negada'){
-      setIsnotpendiente(true);
-    }
-    if(Solicituddatos && Solicituddatos[0].idAdministrador !== 'null'){
-      fetch(`http://192.168.1.131:2000/administrador/${Solicituddatos[0].idAdministrador}`)
-        .then( (res) => res.json())
-        .then((data)=> setAdmin(data));
-    }
+    setNegociopuertasact(puertasnegocio && puertasnegocio[0].puertastot);
+  }, [puertasnegocio])
 
-    setFechasolicitud(Solicituddatos && Solicituddatos[0].fecha_solicitud.substring(0, 10))
-    setCeditext(Solicituddatos && Solicituddatos[0].CEDINombre[0]);
-    setCediregion(Solicituddatos && Solicituddatos[0].region);
-    setCedipais(Solicituddatos && Solicituddatos[0].pais);
+  
 
-    setNumdesarrollador(Solicituddatos && Solicituddatos[0].idDesarrollador[0])
-    setNombredesarrollador(Solicituddatos && Solicituddatos[0].nombre[1])
-    setDescontacto(Solicituddatos && Solicituddatos[0].contacto)
-
-    setClientenombre(Solicituddatos && Solicituddatos[0].nombre_Completo);
-    setClientedomicilio(Solicituddatos && Solicituddatos[0].calle_no[1]);
-    setClientecolonia(Solicituddatos && Solicituddatos[0].colonia[1]);
-    setClienteciudad(Solicituddatos && Solicituddatos[0].ciudad[1]);
-    setClienteestado(Solicituddatos && Solicituddatos[0].estado[1]);
-    setClientecelular(Solicituddatos && Solicituddatos[0].celular[1]);
-
-    setNegocionombre(Solicituddatos && Solicituddatos[0].nombre[0]);
-    setNegociodireccion(Solicituddatos && Solicituddatos[0].calle_no[0]);
-    setNegociocolonia(Solicituddatos && Solicituddatos[0].colonia[0]);
-    setNegociociudad(Solicituddatos && Solicituddatos[0].ciudad[0]);
-    setNegocioestado(Solicituddatos && Solicituddatos[0].estado[0]);
-    setNegociocelular(Solicituddatos && Solicituddatos[0].celular[0]);
-
-    setNegocionumerocliente(Solicituddatos && Solicituddatos[0].idTienda[0])
-    setNegociotamano(Solicituddatos && Solicituddatos[0].tamaño)
-    //
-    if(solicitudrefrispuertas && solicitudrefrispuertas.length !== 0){
-      setNegociopuertassolicitar(solicitudrefrispuertas && solicitudrefrispuertas[0].puertas)
-    }
-    else{
-      setNegociopuertassolicitar(0)
-    }
-  }, [Solicituddatos])
-
-  useEffect(() => {
-    fetch(`http://192.168.1.131:2000/solicitud/solicitudall/${idSolicitud}`)
-    .then( (res) => res.json())
-    .then((data)=> setSolicituddatos(data));
-
-    fetch(`http://192.168.1.131:2000/refrisolicitado/refrisolicitud/${idSolicitud}`)
-    .then( (res) => res.json())
-    .then((data)=> setRefriSolicitud(data));
-
-    fetch(`http://192.168.1.131:2000/refrisolicitado/refrisolicitudpuertas/${idSolicitud}`)
-    .then( (res) => res.json())
-    .then((data)=> setRefriSolicitudpuertas(data));
-  }, []);
 
   const AceptarCambios = () => {
     const url = `http://192.168.1.131:2000/solicitud/aceptarcambios`;
@@ -302,16 +281,21 @@ function Solcheck() {
     const [aprobarmedia, setAprobarmedia] = useState(true);
     const [choferes, setChoferes] = useState();
 
-    useEffect(() => {
-      setIdchoferSeleccionado(choferes && choferes[0].idChofer)
-    }, [choferes])
-
     const AprobarMedia = () => {
       setAprobarmedia(false);
       fetch(`http://192.168.1.131:2000/chofer`)
       .then( (res) => res.json())
-      .then((data)=> setChoferes(data));
+      .then((data)=> {setChoferes(data)})
+      .catch((err) => {
+        alert(err)
+      })
     }
+    
+    useEffect(() => {
+      setIdchoferSeleccionado(choferes && choferes[0].idChofer)
+    }, [choferes])
+
+    
 
     const AprobarSolicitud = () => {
       const url = `http://192.168.1.131:2000/solicitud/chofer/${idSolicitud}`;
@@ -362,15 +346,19 @@ function Solcheck() {
 
     const TerminarSolicitud = () => {
       const url = `http://192.168.1.131:2000/solicitud/terminar/${idSolicitud}`;
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
         fetch(url, options)
         .then((res) => res.json())
-        .then((data) => {setRefriporTiendaMov(data); alert('Solicitud terminada correctamente'); navigate('/historial')})
+        .then((data) => {
+          setRefriporTiendaMov(data);
+          alert('Solicitud terminada correctamente');
+          navigate('/historial');
+        })
           .catch((err) => {
             alert('Solicitud no terminada')
             alert(err)
@@ -378,8 +366,31 @@ function Solcheck() {
         );
       }
 
+      useEffect(() =>{
+        const url = `http://192.168.1.131:2000/refrisolicitado/refriportiendamov`;
+        const data = {
+          idTienda: `${numeroclientenegocio}`,
+          idSolicitud: `${idSolicitud}`,
+          movimiento: `Cambiar`
+        };
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        fetch(url, options)
+        .then((res) => res.json())
+        .then((data) => {setRefriporTiendaMov(data); setRefresh2(false);})
+          .catch((err) => {
+          }
+        );
+      }, [refresh2])
+
   return (
     <div>
+        <div>
       <div class='redbg'>
         <Nav.Link href="/historial"><img class='imageflex' src={BackArrow} alt='backarrow' width='45px' height='45px'/></Nav.Link>
         <h1 class='header'>Datos de la Solicitud</h1>
@@ -469,23 +480,22 @@ function Solcheck() {
             </div>
           </div>
           <br></br><br></br>
-          <div className='form-group'>
-            <div>
-            <h2 class='header2'>Datos de factibilidad</h2>
-            <label class='slabel'>Número de Cliente</label>
-            <input type='text' placeholder='[Número de Cliente]' value={numeroclientenegocio}></input><br/>
-            <br></br>
-            <label class='slabel'>Tamaño</label>
-            <input type='text' placeholder='[Tamaño]' value={tamanonegocio}></input><br/>
-            <br></br>
-            <label class='slabel'>Número actual de puertas</label>
-            <input type='text' placeholder='[Número actual de puertas]' value={puertasact}></input><br/>
-            <br></br>
-            <label class='slabel'>Número de puertas a solicitar</label>
-            <input type='text' placeholder='[Número de puertas a solicitar]' value={puertassolicitarnegocio}></input><br/>
-            <br></br>
-            </div>
+          <div className='inner_from_group'>
+          <h2 class='header2'>Datos de factibilidad</h2>
+          <label class='slabel'>Número de Cliente</label>
+          <input type='text' placeholder='[Número de Cliente]' value={numeroclientenegocio}></input><br/>
+          <br></br>
+          <label class='slabel'>Tamaño</label>
+          <input type='text' placeholder='[Tamaño]' value={tamanonegocio}></input><br/>
+          <br></br>
+          <label class='slabel'>Número actual de puertas</label>
+          <input type='text' placeholder='[Número actual de puertas]' value={puertasact}></input><br/>
+          <br></br>
+          <label class='slabel'>Número de puertas a solicitar</label>
+          <input type='text' placeholder='[Número de puertas a solicitar]' value={puertassolicitarnegocio}></input><br/>
+          <br></br>
           </div>
+          <br /><br /><br /><br />
           <label class='header2'>Listado de EDF actual</label>
           <table class={classtable}>
             <thead class='tableheader'> 
@@ -531,6 +541,8 @@ function Solcheck() {
       <div>
         {isdes ? (
           <div>
+            <Nav.Link as={Link} to={`/foto`} state={{idSolicitud: idSolicitud}}><button class='bot'>Agregar Refrigerador</button></Nav.Link>
+            <br />
             <button class='botspace' onClick={AceptarCambios}>Aceptar cambios</button>
             <button class='botspace' onClick={BorrarSolicitud}>Borrar solicitud</button>
           </div>
@@ -546,7 +558,7 @@ function Solcheck() {
                     <option value={item.idChofer}>{item.nombre}</option>
                     ))}
                   </select><br/>
-                  <button class='botspace' onClick={AprobarSolicitud}>Seleccionar Chofer</button>
+                  <button class='bot' onClick={AprobarSolicitud}>Seleccionar Chofer</button>
               </div>
             <button class='botspace' onClick={NegarSolicitud}>Negar Solicitud</button>
             <button class='botspace' onClick={AprobarMedia} hidden={!aprobarmedia}>Aprobar Solicitud</button>
@@ -563,6 +575,7 @@ function Solcheck() {
         ) : (
           <div></div>
         )}
+      </div>
       </div>
     </div>
   )
